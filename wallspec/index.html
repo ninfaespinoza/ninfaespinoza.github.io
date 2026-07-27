@@ -1,0 +1,1290 @@
+<title>Wallspec</title>
+
+<style>
+  /* Tema claro fijo — por decisión de diseño no cambia con el modo del sistema */
+  :root, :root[data-theme="dark"], :root[data-theme="light"] {
+    /* neutros fríos, contemporáneos */
+    --bg: #EAECEF;
+    --surface: #FFFFFF;
+    --surface-2: #E0E3E7;
+    --ink: #14161B;
+    --muted: #565B64;
+    --faint: #888E98;
+    --line: #14161B;
+    --hair: #D3D7DD;
+
+    /* acentos */
+    --blue: #AFDCEC;
+    --sand: #F4A460;
+    --red: #F70D1A;
+    --ink-blue: #2C6E86;
+    --sand-glow: rgba(244, 164, 96, .30);
+
+    /* formas translúcidas (se mezclan con multiply) */
+    --tred: rgba(247, 13, 26, .50);
+    --tblue: rgba(120, 192, 222, .58);
+    --tsand: rgba(244, 164, 96, .62);
+    --tink: rgba(20, 22, 27, .42);
+
+    --paint: #8B8F97;
+    --paint-ink: #F7F8FA;
+
+    --geo: "Futura", "Century Gothic", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --mono: "Cascadia Mono", "Cascadia Code", ui-monospace, "Consolas", "Roboto Mono", monospace;
+    --display: "Bahnschrift", "DIN Alternate", "DIN Condensed", "Oswald", "PT Sans Narrow", var(--geo);
+
+    /* retícula técnica de fondo (papel milimétrico) */
+    --grid: rgba(20, 22, 27, .07);
+
+    --r: 5px;
+
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(to top, var(--sand-glow), transparent 52%);
+    background-size: 26px 26px, 26px 26px, 100% 100%;
+    background-position: -1px -1px, -1px -1px, 0 0;
+    background-repeat: repeat, repeat, no-repeat;
+    background-attachment: scroll, scroll, fixed;
+    color: var(--ink);
+    font-family: var(--geo);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* franja Bauhaus superior */
+  .banner { display: flex; height: 9px; position: relative; z-index: 2; }
+  .banner i { flex: 1; }
+  .banner i:nth-child(1) { background: var(--red); flex: 1.5; }
+  .banner i:nth-child(2) { background: var(--blue); }
+  .banner i:nth-child(3) { background: var(--sand); }
+  .banner i:nth-child(4) { background: var(--ink); flex: 2.2; }
+
+  /* formas geométricas de fondo (translúcidas) */
+  .page-deco { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .page-deco span { position: absolute; mix-blend-mode: multiply; display: block; }
+  .pd-circle { width: 360px; height: 360px; border-radius: 50%; background: var(--tred); right: -140px; bottom: -150px; opacity: .55; }
+  .pd-tri { width: 0; height: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-bottom: 250px solid var(--tblue); left: -110px; top: 34%; transform: rotate(-16deg); opacity: .5; }
+  .pd-ring { width: 230px; height: 230px; border-radius: 50%; border: 26px solid var(--tsand); left: 30%; top: -120px; opacity: .5; }
+  /* figuras del encabezado — ahora parte del fondo fijo, misma transparencia */
+  .md-circle { width: 190px; height: 190px; border-radius: 50%; background: var(--tred); right: 12%; top: 44px; opacity: .5; }
+  .md-tri { width: 0; height: 0; border-left: 92px solid transparent; border-right: 92px solid transparent; border-bottom: 166px solid var(--tblue); right: 24%; top: 24px; opacity: .5; }
+  .md-bar { width: 272px; height: 46px; background: var(--tsand); right: 2%; top: 120px; transform: rotate(-15deg); opacity: .5; }
+  .md-ring { width: 150px; height: 150px; border-radius: 50%; border: 9px solid var(--tink); right: 8%; top: 64px; opacity: .5; }
+  @media (max-width: 820px) { .md-circle, .md-tri, .md-bar, .md-ring { display: none; } }
+
+  .wrap { position: relative; z-index: 1; max-width: 1720px; margin: 0 auto; padding: 34px clamp(20px, 4vw, 64px) 84px; }
+
+  /* ---------- encabezado ---------- */
+
+  .masthead {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 6px 0 4px;
+  }
+
+  .masthead .brand, .masthead .lang { position: relative; z-index: 2; }
+
+  .brand { display: flex; align-items: center; gap: 15px; }
+
+  .logo-mark { width: 46px; height: 46px; flex: none; display: block; }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: .28em;
+    color: var(--faint);
+    margin: 0 0 5px;
+    font-weight: 500;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(34px, 6.2vw, 52px);
+    line-height: .92;
+    letter-spacing: .005em;
+    font-weight: 600;
+    font-stretch: 90%;
+    text-wrap: balance;
+  }
+
+  /* selector de idioma */
+  .lang { display: flex; border: 2px solid var(--line); border-radius: var(--r); overflow: hidden; }
+  .lang button {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    padding: 7px 14px;
+    background: var(--surface);
+    color: var(--muted);
+    border: 0;
+    cursor: pointer;
+  }
+  .lang button + button { border-left: 2px solid var(--line); }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .lang button:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px; }
+
+  .lede {
+    margin: 12px 0 0;
+    max-width: 52ch;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  /* ---------- rejilla ---------- */
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    gap: clamp(36px, 4vw, 72px);
+    align-items: start;
+    margin-top: 34px;
+  }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  }
+
+  /* ---------- formulario ---------- */
+
+  .form { display: flex; flex-direction: column; gap: 30px; }
+
+  .block { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+
+  .block > legend {
+    padding: 0;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: var(--ink);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .block > legend::before {
+    content: "";
+    width: 14px; height: 14px;
+    background: var(--marker, var(--ink));
+    flex: none;
+  }
+
+  .block > legend::after { content: ""; flex: 1; height: 2px; background: var(--line); }
+
+  .b-surface { --marker: var(--blue); }
+  .b-surface > legend::before { border-radius: 50%; }
+  .b-openings { --marker: var(--red); }
+  .b-openings > legend::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .b-paint { --marker: var(--ink); }
+  .b-color { --marker: var(--sand); }
+  .b-color > legend::before { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    gap: 12px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+
+  /* línea de cota tipo plano bajo las medidas ├────┤ */
+  .field--dim::after {
+    content: "";
+    display: block;
+    height: 7px;
+    margin-top: 6px;
+    background:
+      linear-gradient(var(--ink-blue), var(--ink-blue)) left center / 1.5px 7px no-repeat,
+      linear-gradient(var(--ink-blue), var(--ink-blue)) right center / 1.5px 7px no-repeat,
+      linear-gradient(var(--ink-blue), var(--ink-blue)) center / 100% 1.5px no-repeat;
+    opacity: .5;
+  }
+
+  .field > span { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+  .field .unit { font-family: var(--mono); color: var(--faint); font-size: 10.5px; font-style: normal; text-transform: lowercase; letter-spacing: .02em; }
+
+  input[type="number"], select {
+    width: 100%;
+    font: 600 15px/1.3 var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    background: var(--surface);
+    border: 2px solid var(--hair);
+    border-radius: var(--r);
+    padding: 9px 10px;
+    appearance: none;
+  }
+
+  select {
+    font-family: var(--geo);
+    font-size: 14px;
+    font-weight: 500;
+    padding-right: 30px;
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 16px) calc(50% + 1px), calc(100% - 11px) calc(50% + 1px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+
+  input[type="number"]:focus-visible, select:focus-visible {
+    outline: 0;
+    border-color: var(--ink);
+    box-shadow: 3px 3px 0 var(--red);
+  }
+
+  /* ---------- pestañas ---------- */
+
+  .tabs { display: flex; border: 2px solid var(--line); width: fit-content; border-radius: var(--r); overflow: hidden; }
+  .tabs input { position: absolute; opacity: 0; pointer-events: none; }
+  .tabs label {
+    padding: 8px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: var(--muted);
+    background: var(--surface);
+    cursor: pointer;
+  }
+  .tabs label + input + label,
+  .tabs input + label ~ label { }
+  .tabs label:first-of-type { border-right: 2px solid var(--line); }
+  .tabs input:checked + label { background: var(--ink); color: var(--bg); }
+  .tabs input:focus-visible + label { outline: 2px solid var(--sand); outline-offset: -2px; }
+
+  /* ---------- casillas ---------- */
+
+  .check { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--muted); cursor: pointer; font-weight: 500; }
+  .check input { accent-color: var(--ink); width: 16px; height: 16px; margin: 0; border-radius: 0; }
+
+  /* ---------- huecos (puertas / ventanas) ---------- */
+
+  .openings-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .op-head { display: grid; grid-template-columns: 64px 1fr; gap: 8px; padding: 0 2px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); }
+  .openings { display: flex; flex-direction: column; gap: 9px; }
+  .op-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) 12px minmax(0, 1fr) 34px; align-items: center; gap: 8px; }
+  .op-row .times { text-align: center; color: var(--faint); font-size: 14px; }
+
+  /* ---------- paredes sueltas ---------- */
+
+  .walls { display: flex; flex-direction: column; gap: 9px; }
+  .wall-row {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) 12px minmax(0, 1fr) 34px 34px;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    border: 2px solid transparent;
+    border-radius: var(--r);
+  }
+  .wall-row.active { border-color: var(--line); background: var(--surface); }
+  .wall-row .w-color { width: 34px; height: 34px; }
+  .wall-row .idx { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--faint); }
+  .wall-row .times { text-align: center; color: var(--faint); font-size: 14px; }
+
+  .icon-btn {
+    background: var(--surface);
+    border: 2px solid var(--hair);
+    border-radius: var(--r);
+    color: var(--muted);
+    height: 34px; width: 34px;
+    font-size: 18px; line-height: 1;
+    cursor: pointer;
+  }
+  .icon-btn:hover { color: var(--ink); border-color: var(--ink); }
+  .icon-btn:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px; }
+
+  .text-btn {
+    align-self: flex-start;
+    background: var(--surface);
+    border: 2px solid var(--line);
+    border-radius: var(--r);
+    color: var(--ink);
+    font: 600 11.5px/1 var(--mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  .text-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  .text-btn:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px; }
+
+  /* ---------- selector de color ---------- */
+
+  input[type="color"] {
+    width: 32px; height: 32px; padding: 0;
+    border: 2px solid var(--hair);
+    border-radius: 50%;
+    background: none; cursor: pointer; overflow: hidden;
+  }
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 2px; }
+  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
+  input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
+  input[type="color"]:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px; }
+
+  /* ---------- vista isométrica ---------- */
+
+  .top-row { display: flex; gap: 14px; align-items: stretch; }
+  .top-row .chip { flex: 1 1 auto; min-width: 0; }
+  .room-card { flex: 0 0 188px; padding: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .room-card::after { display: none; }
+  #room-svg { width: 100%; height: auto; display: block; }
+  #room-svg polygon { stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; transition: fill .3s ease, points .3s ease; }
+  #rm-shadeL, #rm-shadeF { stroke: none; }
+  @media (prefers-reduced-motion: reduce) { #room-svg polygon { transition: none; } }
+
+  @media (max-width: 520px) {
+    .top-row { flex-direction: column; }
+    .room-card { flex: none; width: 100%; min-height: 150px; }
+  }
+
+  /* ---------- resultado ---------- */
+
+  .result { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 16px; }
+  @media (max-width: 860px) { .result { position: static; } }
+
+  .chip {
+    position: relative;
+    overflow: hidden;
+    background: var(--paint);
+    color: var(--paint-ink);
+    padding: 26px 24px 22px;
+    border: 3px solid var(--line);
+    border-radius: var(--r);
+    transition: background-color .35s ease, color .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) { .chip { transition: none; } }
+
+  .chip > *:not(.chip-deco) { position: relative; z-index: 1; }
+  .chip-deco { position: absolute; z-index: 0; right: -36px; bottom: -48px; width: 165px; height: 165px; pointer-events: none; }
+  .chip-deco::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 12px solid currentColor; opacity: .16; }
+  .chip-deco::after { content: ""; position: absolute; right: 48px; bottom: 30px; width: 0; height: 0; border-left: 34px solid transparent; border-right: 34px solid transparent; border-bottom: 60px solid currentColor; opacity: .13; transform: rotate(16deg); }
+
+  /* marca de registro (cruz técnica) */
+  .chip::after, .card::after {
+    content: "";
+    position: absolute; top: 12px; right: 12px; width: 11px; height: 11px;
+    background:
+      linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+      linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+    pointer-events: none;
+  }
+  .chip::after { opacity: .5; }
+
+  .chip .chip-label {
+    font-family: var(--mono);
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: .22em;
+    opacity: .82; margin: 0 0 8px; font-weight: 500;
+  }
+  .chip .amount { display: flex; align-items: baseline; gap: 9px; font-variant-numeric: tabular-nums; }
+  .chip .amount b { font-family: var(--mono); font-size: clamp(46px, 8.6vw, 62px); line-height: .9; font-weight: 700; letter-spacing: -.02em; }
+  .chip .amount span { font-family: var(--mono); font-size: 13px; font-weight: 500; opacity: .82; text-transform: uppercase; letter-spacing: .14em; }
+  .chip .sub { margin: 16px 0 0; padding-top: 13px; border-top: 1.5px solid currentColor; font-size: 12.5px; opacity: .85; font-family: var(--mono); }
+  .chip .hex { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; opacity: .68; margin: 14px 0 0; text-transform: uppercase; }
+
+  .card { position: relative; background: var(--surface); border: 2px solid var(--hair); border-radius: var(--r); padding: 18px; }
+  .card::after { color: var(--faint); opacity: .7; width: 10px; height: 10px; }
+  .card h2 {
+    margin: 0 0 14px; font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: .18em; color: var(--ink); font-weight: 600;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .card h2::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--sand); flex: none; }
+
+  #buy { display: flex; flex-direction: column; gap: 15px; }
+  .buy-item { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: baseline; gap: 11px; }
+  .buy-item .qty { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 21px; font-weight: 800; text-align: right; }
+  .buy-item .name { font-size: 14px; font-weight: 600; }
+  .buy-item .vol { font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+  .empty { color: var(--faint); font-size: 13.5px; margin: 0; }
+
+  /* grupos por color */
+  .cgroup { display: flex; flex-direction: column; gap: 10px; }
+  .cghead { display: flex; align-items: center; gap: 9px; padding-bottom: 8px; border-bottom: 2px solid var(--line); }
+  .cghead .dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(120,120,120,.4); flex: none; }
+  .cghead .cg-name { font-family: var(--mono); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .cghead .cg-meta { margin-left: auto; font-family: var(--mono); font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .cg-empty { font-size: 12.5px; color: var(--faint); }
+
+  /* color del cuarto (por %) / hint por pared */
+  #color-room { margin-top: 2px; }
+  .colors { display: flex; flex-direction: column; gap: 6px; }
+  .color-row { display: flex; align-items: center; gap: 11px; padding: 6px; }
+  .crow-dot { width: 32px; height: 32px; flex: none; }
+  .crow-name { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  input.rc-pct { width: 64px; flex: none; text-align: right; }
+  .crow-sign { color: var(--faint); font-size: 13px; margin-left: -4px; }
+  .color-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+  .pct-warn { font-size: 12px; color: #9A6206; font-weight: 700; }
+  .color-hint { margin: 2px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+
+  .totals { list-style: none; margin: 0; padding: 0; }
+  .totals li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--hair); font-size: 13.5px; }
+  .totals li:last-child { border-bottom: 0; }
+  .totals .k { color: var(--muted); }
+  .totals .v { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .totals li.strong { border-bottom: 2px solid var(--line); }
+  .totals li.strong .k { color: var(--ink); font-weight: 700; }
+  .totals li.strong .v { font-weight: 800; }
+  .totals li.sobra .v { color: var(--ink); }
+  .totals li.sobra .k::before { content: ""; display: inline-block; width: 9px; height: 9px; background: var(--red); margin-right: 7px; vertical-align: middle; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+
+  .note {
+    display: flex; gap: 10px; font-size: 12.5px; color: var(--muted);
+    background: var(--surface-2); border-left: 4px solid var(--sand);
+    padding: 11px 13px;
+    border-radius: 0 var(--r) var(--r) 0;
+  }
+  .note b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- explicación ---------- */
+
+  .explain { margin-top: 42px; border-top: 3px solid var(--line); padding-top: 20px; }
+  .explain summary {
+    cursor: pointer; font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: .18em; color: var(--ink); font-weight: 600;
+    list-style: none; display: flex; align-items: center; gap: 10px;
+  }
+  .explain summary::-webkit-details-marker { display: none; }
+  .explain summary::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--blue); }
+  details[open] .explain summary::before, .explain[open] summary::before { background: var(--sand); }
+  .explain summary:focus-visible { outline: 2px solid var(--sand); outline-offset: 3px; }
+
+  .explain .body { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px; margin-top: 20px; max-width: 82ch; }
+  .explain h3 { margin: 0 0 7px; font-size: 13.5px; font-weight: 700; }
+  .explain p { margin: 0 0 10px; font-size: 13.5px; color: var(--muted); }
+  .formula { font-family: var(--mono); font-size: 12.5px; background: var(--surface); border: 2px solid var(--hair); padding: 10px 12px; color: var(--ink); overflow-x: auto; white-space: nowrap; }
+</style>
+
+<div class="page-deco" aria-hidden="true">
+  <span class="pd-circle"></span>
+  <span class="pd-tri"></span>
+  <span class="pd-ring"></span>
+  <span class="md-circle"></span>
+  <span class="md-tri"></span>
+  <span class="md-bar"></span>
+  <span class="md-ring"></span>
+</div>
+
+<div class="banner" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="brand">
+      <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <rect x="2" y="2" width="36" height="36" fill="var(--ink)"/>
+        <circle cx="15" cy="15" r="7.5" fill="var(--blue)"/>
+        <rect x="21" y="21" width="12" height="12" fill="var(--sand)"/>
+      </svg>
+      <div>
+        <p class="kicker" data-i18n="kicker"></p>
+        <h1 data-i18n="title"></h1>
+      </div>
+    </div>
+    <div class="lang" role="group" aria-label="Language / Idioma">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </header>
+
+  <p class="lede" data-i18n="lede"></p>
+
+  <div class="layout">
+
+    <form class="form" id="form" autocomplete="off">
+
+      <fieldset class="block b-surface">
+        <legend data-i18n="legendSurface"></legend>
+
+        <div class="tabs" role="radiogroup" data-i18n-al="measureHow" aria-label="How to measure">
+          <input type="radio" name="modo" id="modo-cuarto" value="cuarto" checked>
+          <label for="modo-cuarto" data-i18n="tabRoom"></label>
+          <input type="radio" name="modo" id="modo-paredes" value="paredes">
+          <label for="modo-paredes" data-i18n="tabWalls"></label>
+        </div>
+
+        <div id="panel-cuarto">
+          <div class="fields">
+            <label class="field field--dim">
+              <span><span data-i18n="fLength"></span> <em class="unit" data-i18n="unitM"></em></span>
+              <input type="number" id="largo" value="4" min="0" step="0.1" inputmode="decimal">
+            </label>
+            <label class="field field--dim">
+              <span><span data-i18n="fWidth"></span> <em class="unit" data-i18n="unitM"></em></span>
+              <input type="number" id="ancho" value="3" min="0" step="0.1" inputmode="decimal">
+            </label>
+            <label class="field field--dim">
+              <span><span data-i18n="fHeight"></span> <em class="unit" data-i18n="unitM"></em></span>
+              <input type="number" id="alto" value="2.5" min="0" step="0.1" inputmode="decimal">
+            </label>
+          </div>
+          <label class="check" style="margin-top:14px">
+            <input type="checkbox" id="techo"> <span data-i18n="ceiling"></span>
+          </label>
+        </div>
+
+        <div id="panel-paredes" hidden>
+          <div class="walls" id="walls"></div>
+          <button type="button" class="text-btn" id="add-wall" data-i18n="addWall" style="margin-top:12px"></button>
+        </div>
+      </fieldset>
+
+      <fieldset class="block b-openings">
+        <legend data-i18n="legendOpenings"></legend>
+        <div class="openings-wrap">
+          <div class="op-head">
+            <span data-i18n="opQty"></span>
+            <span data-i18n="opSize"></span>
+          </div>
+          <div class="openings" id="openings"></div>
+        </div>
+        <button type="button" class="text-btn" id="add-opening" data-i18n="addOpening"></button>
+      </fieldset>
+
+      <fieldset class="block b-paint">
+        <legend data-i18n="legendPaint"></legend>
+        <div class="fields">
+          <label class="field">
+            <span data-i18n="fCoats"></span>
+            <select id="manos">
+              <option value="1" data-i18n="coats1"></option>
+              <option value="2" selected data-i18n="coats2"></option>
+              <option value="3" data-i18n="coats3"></option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="fWall"></span>
+            <select id="preset">
+              <option value="12" data-i18n="presetSmooth"></option>
+              <option value="10" selected data-i18n="presetNormal"></option>
+              <option value="8" data-i18n="presetTexture"></option>
+              <option value="6" data-i18n="presetPlaster"></option>
+              <option value="custom" data-i18n="presetCustom"></option>
+            </select>
+          </label>
+          <label class="field">
+            <span><span data-i18n="fCoverage"></span> <em class="unit">m²/L</em></span>
+            <input type="number" id="rendimiento" value="10" min="1" step="0.5" inputmode="decimal">
+          </label>
+          <label class="field">
+            <span><span data-i18n="fPrice"></span> <em class="unit" data-i18n="optional"></em></span>
+            <input type="number" id="precio" value="" min="0" step="1" inputmode="decimal" placeholder="—">
+          </label>
+          <label class="field">
+            <span data-i18n="fCurrency"></span>
+            <select id="moneda">
+              <option value="USD" selected>USD&nbsp;&nbsp;$</option>
+              <option value="HNL">HNL&nbsp;&nbsp;L</option>
+              <option value="MXN">MXN&nbsp;&nbsp;$</option>
+              <option value="GTQ">GTQ&nbsp;&nbsp;Q</option>
+              <option value="CRC">CRC&nbsp;&nbsp;₡</option>
+              <option value="EUR">EUR&nbsp;&nbsp;€</option>
+            </select>
+          </label>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="merma" checked> <span data-i18n="waste"></span>
+        </label>
+      </fieldset>
+
+      <fieldset class="block b-color">
+        <legend data-i18n="legendColor"></legend>
+        <div id="color-room"></div>
+        <p class="color-hint" id="color-hint" data-i18n="colorHint" hidden></p>
+      </fieldset>
+
+    </form>
+
+    <aside class="result" aria-live="polite">
+
+      <div class="top-row">
+        <div class="chip" id="chip">
+          <span class="chip-deco" aria-hidden="true"></span>
+          <p class="chip-label" data-i18n="resultLabel"></p>
+          <p class="amount"><b id="litros">0</b> <span data-i18n="unitLiters"></span></p>
+          <p class="sub" id="chip-sub">—</p>
+          <p class="hex" id="chip-hex">#8B887E</p>
+        </div>
+        <div class="card room-card">
+          <svg id="room-svg" viewBox="0 0 320 236" preserveAspectRatio="xMidYMid meet" role="img" data-i18n-al="roomAria" aria-label="Isometric preview of the room">
+            <polygon id="rm-floor"></polygon>
+            <polygon id="rm-wallR"></polygon>
+            <polygon id="rm-wallL"></polygon>
+            <polygon id="rm-shadeL" fill="rgba(0,0,0,.12)" stroke="none"></polygon>
+            <polygon id="rm-shadeF" fill="rgba(0,0,0,.05)" stroke="none"></polygon>
+          </svg>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="buyTitle"></h2>
+        <div id="buy"></div>
+        <p class="empty" id="buy-empty" data-i18n="buyEmpty" hidden></p>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="breakdownTitle"></h2>
+        <ul class="totals">
+          <li><span class="k" data-i18n="rTotal"></span><span class="v" id="t-bruta">—</span></li>
+          <li><span class="k" data-i18n="rMinus"></span><span class="v" id="t-huecos">—</span></li>
+          <li class="strong"><span class="k" data-i18n="rNet"></span><span class="v" id="t-neta">—</span></li>
+          <li><span class="k" id="k-coats"></span><span class="v" id="t-cubrir">—</span></li>
+          <li><span class="k" data-i18n="rLiters"></span><span class="v" id="t-litros">—</span></li>
+          <li class="sobra"><span class="k" data-i18n="rLeftover"></span><span class="v" id="t-sobra">—</span></li>
+          <li class="strong" id="row-costo" hidden><span class="k" data-i18n="rCost"></span><span class="v" id="t-costo">—</span></li>
+        </ul>
+      </div>
+
+      <p class="note" id="note-primer" hidden>
+        <span><b data-i18n="noteTitle"></b> <span data-i18n="noteBody"></span></span>
+      </p>
+
+    </aside>
+  </div>
+
+  <details class="explain">
+    <summary data-i18n="explainSummary"></summary>
+    <div class="body">
+      <div>
+        <h3 data-i18n="ex1t"></h3>
+        <p data-i18n="ex1p"></p>
+        <p class="formula" data-i18n="ex1f"></p>
+      </div>
+      <div>
+        <h3 data-i18n="ex2t"></h3>
+        <p data-i18n="ex2p"></p>
+      </div>
+      <div>
+        <h3 data-i18n="ex3t"></h3>
+        <p data-i18n="ex3p"></p>
+      </div>
+      <div>
+        <h3 data-i18n="ex4t"></h3>
+        <p data-i18n="ex4p"></p>
+      </div>
+    </div>
+  </details>
+
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+
+  /* ---------- traducciones ---------- */
+
+  const I18N = {
+    en: {
+      kicker: "How much paint to buy",
+      title: "Wallspec",
+      lede: "Measure, subtract doors and windows, and it tells you how many liters you need — and exactly which cans to buy.",
+      legendSurface: "Surface",
+      tabRoom: "Whole room", tabWalls: "Individual walls",
+      measureHow: "How to measure",
+      fLength: "Length", fWidth: "Width", fHeight: "Height",
+      unitM: "m",
+      ceiling: "Also paint the ceiling",
+      addWall: "+ Add wall",
+      legendOpenings: "What you don't paint",
+      fDoors: "Doors", fWindows: "Windows", fEach: "m² each",
+      opQty: "Qty", opSize: "Width × Height (m)", addOpening: "+ Add door or window",
+      legendPaint: "The paint",
+      fCoats: "Coats", fWall: "Wall type", fCoverage: "Coverage", fPrice: "Price per liter", fCurrency: "Currency",
+      optional: "optional",
+      waste: "Add 10% extra for touch-ups and waste",
+      legendColor: "Color",
+      customColor: "Choose a custom color",
+      colorsWord: "colors",
+      colorHint: "Give each wall a color using its dot. The result splits by color, so you know how much of each to buy.",
+      addColor: "+ Add another color",
+      shareAria: "Share of the surface, %",
+      pctWarn: "The shares add up to {n}% — set them to 100%.",
+      coats1: "1 coat", coats2: "2 coats", coats3: "3 coats",
+      presetSmooth: "Smooth, already painted", presetNormal: "Normal",
+      presetTexture: "Textured or rough", presetPlaster: "Plaster or new wall", presetCustom: "Custom",
+      roomTitle: "Preview", roomAria: "Isometric cutaway of the room, painted with the chosen colors",
+      resultLabel: "You need to buy", unitLiters: "liters",
+      buyTitle: "What to ask for at the store",
+      buyEmpty: "Enter the wall measurements.",
+      breakdownTitle: "The breakdown",
+      rTotal: "Total surface", rMinus: "Minus doors and windows", rNet: "Surface to paint",
+      rCoats: "With {n} coats", rLiters: "Liters needed", rLeftover: "You'll have left over", rCost: "Approximate cost",
+      noteTitle: "New wall:", noteBody: "the first sealing coat drinks nearly double. This estimate already accounts for it with the low coverage you picked.",
+      explainSummary: "How it's calculated",
+      ex1t: "The formula", ex1p: "It all comes from a single division: the square meters to cover, divided by what one liter yields.",
+      ex1f: "liters = (m² × coats) ÷ coverage",
+      ex2t: "Coverage changes the most", ex2p: "One liter of wall paint covers between 6 and 12 m², and the difference isn't the brand — it's the wall. A smooth, already-painted surface drinks little; fresh plaster or a rough texture have more real area and soak up much more. If the can lists it, use that number — it's on the label as “coverage” or “yield.”",
+      ex3t: "Why two coats", ex3p: "A single coat rarely covers evenly, especially if the new color is lighter than the old one. Two is normal; three when going from a dark color to a light one.",
+      ex4t: "Why paint is left over", ex4p: "It's sold in sealed cans, so you almost always buy a bit more. That's fine: keep the leftover for touch-ups — it's the exact same shade, which is impossible to match later.",
+      cans: { bucket: ["Bucket", "Buckets"], gallon: ["Gallon", "Gallons"], liter: ["Liter", "Liters"] },
+      coat: ["coat", "coats"],
+      locale: "en-US"
+    },
+    es: {
+      kicker: "Cuánta pintura comprar",
+      title: "Wallspec",
+      lede: "Mide, resta puertas y ventanas, y te dice cuántos litros necesitas — y exactamente qué botes comprar.",
+      legendSurface: "Superficie",
+      tabRoom: "Cuarto completo", tabWalls: "Paredes sueltas",
+      measureHow: "Forma de medir",
+      fLength: "Largo", fWidth: "Ancho", fHeight: "Altura",
+      unitM: "m",
+      ceiling: "Pintar también el techo",
+      addWall: "+ Agregar pared",
+      legendOpenings: "Lo que no se pinta",
+      fDoors: "Puertas", fWindows: "Ventanas", fEach: "m² c/u",
+      opQty: "Cant.", opSize: "Ancho × Alto (m)", addOpening: "+ Agregar puerta o ventana",
+      legendPaint: "La pintura",
+      fCoats: "Manos", fWall: "Tipo de pared", fCoverage: "Rendimiento", fPrice: "Precio por litro", fCurrency: "Moneda",
+      optional: "opcional",
+      waste: "Agregar 10% extra para retoques y desperdicio",
+      legendColor: "Color",
+      customColor: "Elegir un color personalizado",
+      colorsWord: "colores",
+      colorHint: "Dale color a cada pared con su punto. El resultado se divide por color, para saber cuánto comprar de cada uno.",
+      addColor: "+ Agregar otro color",
+      shareAria: "Parte de la superficie, %",
+      pctWarn: "Las partes suman {n}% — ajústalas a 100%.",
+      coats1: "1 mano", coats2: "2 manos", coats3: "3 manos",
+      presetSmooth: "Lisa, ya pintada", presetNormal: "Normal",
+      presetTexture: "Texturizada o rugosa", presetPlaster: "Yeso o pared nueva", presetCustom: "Personalizado",
+      roomTitle: "Vista previa", roomAria: "Corte isométrico del cuarto, pintado con los colores elegidos",
+      resultLabel: "Necesitas comprar", unitLiters: "litros",
+      buyTitle: "Qué pedir en la tienda",
+      buyEmpty: "Ingresa las medidas de la pared.",
+      breakdownTitle: "El desglose",
+      rTotal: "Superficie total", rMinus: "Menos puertas y ventanas", rNet: "Superficie a pintar",
+      rCoats: "Con {n} manos", rLiters: "Litros necesarios", rLeftover: "Te sobrará", rCost: "Costo aproximado",
+      noteTitle: "Pared nueva:", noteBody: "el primer sellador se toma casi el doble de pintura. Este cálculo ya lo considera con el rendimiento bajo que elegiste.",
+      explainSummary: "Cómo se calcula",
+      ex1t: "La fórmula", ex1p: "Todo sale de una sola división: los metros cuadrados que hay que cubrir, entre lo que rinde un litro.",
+      ex1f: "litros = (m² × manos) ÷ rendimiento",
+      ex2t: "El rendimiento es lo que más cambia", ex2p: "Un litro de vinílica cubre entre 6 y 12 m², y la diferencia no es la marca: es la pared. Una superficie lisa y ya pintada se bebe poco; el yeso nuevo o una textura rugosa tienen más área real y absorben mucho más. Si el bote trae el dato, úsalo — está en la etiqueta como «rendimiento».",
+      ex3t: "Por qué dos manos", ex3p: "Una sola mano casi nunca tapa parejo, sobre todo si el color nuevo es más claro que el viejo. Dos es lo normal; tres si vas de un color oscuro a uno claro.",
+      ex4t: "Por qué sobra pintura", ex4p: "Se vende en botes cerrados, así que casi siempre compras de más. Eso está bien: guarda el sobrante para los retoques, y es el mismo tono exacto, que después es imposible de igualar.",
+      cans: { bucket: ["Cubeta", "Cubetas"], gallon: ["Galón", "Galones"], liter: ["Litro", "Litros"] },
+      coat: ["mano", "manos"],
+      locale: "es-MX"
+    }
+  };
+
+  let lang = "en";
+  const t = (k) => I18N[lang][k];
+
+  const COLORS = [
+    ["#F2EFE9", "Oyster white", "Blanco ostra"],
+    ["#DED3BC", "Sand", "Arena"],
+    ["#A8B39A", "Sage green", "Verde salvia"],
+    ["#AFDCEC", "Sky blue", "Azul cielo"],
+    ["#B5654A", "Terracotta", "Terracota"],
+    ["#8B887E", "Cement grey", "Gris cemento"],
+    ["#2B2A26", "Near black", "Casi negro"]
+  ];
+
+  const CANS = [
+    { vol: 19, key: "bucket", label: "19 L" },
+    { vol: 3.8, key: "gallon", label: "3.8 L" },
+    { vol: 1, key: "liter", label: "1 L" }
+  ];
+
+  const nf = (n, d = 1) =>
+    n.toLocaleString(I18N[lang].locale, { minimumFractionDigits: d, maximumFractionDigits: d });
+
+  const money = (n) => {
+    const cur = ($("moneda") && $("moneda").value) || "USD";
+    return n.toLocaleString(I18N[lang].locale, { style: "currency", currency: cur, currencyDisplay: "narrowSymbol", maximumFractionDigits: 0 });
+  };
+
+  const num = (el) => {
+    const v = parseFloat(el.value);
+    return Number.isFinite(v) && v > 0 ? v : 0;
+  };
+
+  /* ---------- idioma ---------- */
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    for (const el of document.querySelectorAll("[data-i18n]")) {
+      const v = t(el.dataset.i18n);
+      if (v != null) el.textContent = v;
+    }
+    for (const el of document.querySelectorAll("[data-i18n-al]")) {
+      const v = t(el.dataset.i18nAl);
+      if (v != null) el.setAttribute("aria-label", v);
+    }
+    for (const b of document.querySelectorAll(".lang button")) {
+      b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+    }
+    let i = 1;
+    for (const row of $("walls").children) {
+      row.querySelector(".w-ancho").setAttribute("aria-label", (lang === "es" ? "Ancho, pared " : "Width, wall ") + i);
+      row.querySelector(".w-alto").setAttribute("aria-label", (lang === "es" ? "Altura, pared " : "Height, wall ") + i);
+      row.querySelector(".w-color").setAttribute("aria-label", (lang === "es" ? "Color, pared " : "Color, wall ") + i);
+      row.querySelector("button").setAttribute("aria-label", lang === "es" ? "Quitar esta pared" : "Remove this wall");
+      i++;
+    }
+    labelOpenings();
+    buildColorUI();
+    resetActiveDot();
+    calc();
+  }
+
+  for (const b of document.querySelectorAll(".lang button")) {
+    b.addEventListener("click", () => { lang = b.dataset.lang; applyLang(); });
+  }
+
+  /* ---------- color ---------- */
+  /* "Paredes sueltas" → cada pared lleva su color (se agrupa por color).
+     "Cuarto completo" → uno o varios colores repartidos por porcentaje. */
+
+  let activeDot = null;                                   // pared seleccionada (modo paredes)
+  const roomColors = [{ hex: "#8B887E", pct: 100 }];      // colores del cuarto (modo cuarto)
+  const MAX_COLORS = 5;
+
+  function luminance(hex) {
+    const c = hex.replace("#", "");
+    const rgb = [0, 2, 4].map((i) => parseInt(c.slice(i, i + 2), 16) / 255);
+    const lin = rgb.map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+    return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+  }
+
+  function colorName(hex) {
+    const row = COLORS.find((c) => c[0].toLowerCase() === hex.toLowerCase());
+    return row ? (lang === "es" ? row[2] : row[1]) : hex.toUpperCase();
+  }
+
+  /* tiñe el bloque de resultado con el color dado */
+  function setTint(hex) {
+    document.documentElement.style.setProperty("--paint", hex);
+    document.documentElement.style.setProperty("--paint-ink", luminance(hex) > 0.42 ? "#1B1A17" : "#FBFAF7");
+    $("chip-hex").textContent = hex.toUpperCase();
+  }
+
+  function setActiveDot(el) {
+    if (!el) return;
+    activeDot = el;
+    document.querySelectorAll(".color-row.active, .wall-row.active").forEach((r) => r.classList.remove("active"));
+    if (!$("modo-cuarto").checked) {
+      const row = el.closest(".wall-row");
+      if (row) row.classList.add("active");
+    }
+  }
+
+  function resetActiveDot() {
+    if ($("modo-cuarto").checked) {
+      activeDot = null;
+      document.querySelectorAll(".wall-row.active").forEach((r) => r.classList.remove("active"));
+    } else {
+      setActiveDot(wallsBox.querySelector(".w-color"));
+    }
+  }
+
+  function evenSplitRoom() {
+    const n = roomColors.length, base = Math.floor(100 / n), rem = 100 - base * n;
+    roomColors.forEach((c, i) => { c.pct = base + (i < rem ? 1 : 0); });
+  }
+
+  function updateRoomWarn() {
+    const el = $("room-warn");
+    if (!el) return;
+    const sum = roomColors.reduce((s, c) => s + c.pct, 0);
+    if (roomColors.length > 1 && Math.abs(sum - 100) > 0.5) {
+      el.hidden = false;
+      el.textContent = t("pctWarn").replace("{n}", Math.round(sum));
+    } else {
+      el.hidden = true;
+    }
+  }
+
+  /* fila de color del cuarto: punto + nombre, y (si hay varios) porcentaje + quitar */
+  function roomColorRow(c, i, multi) {
+    const extra = multi
+      ? `<input type="number" class="rc-pct" data-i="${i}" value="${Math.round(c.pct)}" min="0" max="100" step="1" inputmode="numeric" aria-label="${t("shareAria")}">`
+        + `<span class="crow-sign">%</span>`
+        + `<button type="button" class="icon-btn rc-del" data-i="${i}" aria-label="${lang === "es" ? "Quitar color" : "Remove color"}">−</button>`
+      : "";
+    return `<div class="color-row" data-i="${i}">`
+      + `<input type="color" class="crow-dot rc-dot" data-i="${i}" value="${c.hex}" aria-label="${t("customColor")}">`
+      + `<span class="crow-name">${colorName(c.hex)}</span>${extra}</div>`;
+  }
+
+  /* modo cuarto → lista de colores por %; modo paredes → texto de ayuda */
+  function buildColorUI() {
+    const roomMode = $("modo-cuarto").checked;
+    $("color-hint").hidden = roomMode;
+    const box = $("color-room");
+    box.hidden = !roomMode;
+    if (!roomMode) { box.innerHTML = ""; return; }
+    const multi = roomColors.length > 1;
+    box.innerHTML =
+      `<div class="colors">${roomColors.map((c, i) => roomColorRow(c, i, multi)).join("")}</div>`
+      + `<div class="color-actions">`
+      + `<button type="button" class="text-btn rc-add"${roomColors.length >= MAX_COLORS ? " hidden" : ""}>${t("addColor")}</button>`
+      + `<span class="pct-warn" id="room-warn" hidden></span></div>`;
+    updateRoomWarn();
+  }
+
+  /* interacción de la lista de colores del cuarto (delegada, sobrevive a los re-render) */
+  $("color-room").addEventListener("input", (e) => {
+    const el = e.target, i = +el.dataset.i;
+    if (el.classList.contains("rc-dot")) {
+      roomColors[i].hex = el.value;
+      const nameEl = el.closest(".color-row").querySelector(".crow-name");
+      if (nameEl) nameEl.textContent = colorName(el.value);
+      calc();
+    } else if (el.classList.contains("rc-pct")) {
+      let v = parseFloat(el.value);
+      if (!Number.isFinite(v)) v = 0;
+      roomColors[i].pct = Math.max(0, Math.min(100, v));
+      updateRoomWarn();
+      calc();
+    }
+  });
+
+  $("color-room").addEventListener("click", (e) => {
+    if (e.target.closest(".rc-add")) {
+      if (roomColors.length >= MAX_COLORS) return;
+      const used = new Set(roomColors.map((c) => c.hex.toLowerCase()));
+      const next = COLORS.find((c) => !used.has(c[0].toLowerCase()));
+      roomColors.push({ hex: next ? next[0] : "#F4A460", pct: 0 });
+      evenSplitRoom();
+      buildColorUI();
+      calc();
+      return;
+    }
+    const del = e.target.closest(".rc-del");
+    if (del) {
+      const i = +del.dataset.i;
+      if (roomColors.length <= 1) return;
+      roomColors.splice(i, 1);
+      evenSplitRoom();
+      buildColorUI();
+      calc();
+    }
+  });
+
+  function canRow(c) {
+    const nm = I18N[lang].cans[c.key][c.qty > 1 ? 1 : 0];
+    return `<div class="buy-item"><span class="qty">${c.qty}</span><span class="name">${nm}</span><span class="vol">${c.label}</span></div>`;
+  }
+
+  /* ---------- paredes sueltas ---------- */
+
+  const wallsBox = $("walls");
+
+  /* al enfocar o cambiar el color de una pared, esa pared queda seleccionada */
+  wallsBox.addEventListener("focusin", (e) => {
+    if (e.target.classList.contains("w-color")) setActiveDot(e.target);
+  });
+  wallsBox.addEventListener("input", (e) => {
+    if (e.target.classList.contains("w-color")) setActiveDot(e.target);
+  });
+
+  function addWall(w = 3, h = 2.5) {
+    const startColor = (roomColors[0] && roomColors[0].hex) || "#8B887E";
+    const row = document.createElement("div");
+    row.className = "wall-row";
+    row.innerHTML =
+      '<span class="idx"></span>' +
+      '<input type="number" class="w-ancho" min="0" step="0.1" inputmode="decimal">' +
+      '<span class="times">×</span>' +
+      '<input type="number" class="w-alto" min="0" step="0.1" inputmode="decimal">' +
+      '<input type="color" class="w-color crow-dot">' +
+      '<button type="button" class="icon-btn">−</button>';
+    row.querySelector(".w-ancho").value = w;
+    row.querySelector(".w-alto").value = h;
+    row.querySelector(".w-color").value = startColor;
+    row.querySelector("button").addEventListener("click", () => {
+      const wasActive = row.contains(activeDot);
+      row.remove();
+      renumber();
+      if (wasActive) resetActiveDot();
+      calc();
+    });
+    wallsBox.appendChild(row);
+    renumber();
+  }
+
+  function renumber() {
+    const only = wallsBox.children.length === 1;
+    [...wallsBox.children].forEach((r, i) => {
+      r.querySelector(".idx").textContent = String(i + 1).padStart(2, "0");
+      const btn = r.querySelector("button");
+      btn.disabled = only;
+      btn.style.visibility = only ? "hidden" : "visible";
+      r.querySelector(".w-ancho").setAttribute("aria-label", (lang === "es" ? "Ancho, pared " : "Width, wall ") + (i + 1));
+      r.querySelector(".w-alto").setAttribute("aria-label", (lang === "es" ? "Altura, pared " : "Height, wall ") + (i + 1));
+      r.querySelector(".w-color").setAttribute("aria-label", (lang === "es" ? "Color, pared " : "Color, wall ") + (i + 1));
+      btn.setAttribute("aria-label", lang === "es" ? "Quitar esta pared" : "Remove this wall");
+    });
+  }
+
+  addWall(3, 2.5);
+  $("add-wall").addEventListener("click", () => { addWall(); calc(); });
+
+  for (const r of document.querySelectorAll('input[name="modo"]')) {
+    r.addEventListener("change", () => {
+      const cuarto = $("modo-cuarto").checked;
+      $("panel-cuarto").hidden = !cuarto;
+      $("panel-paredes").hidden = cuarto;
+      buildColorUI();
+      resetActiveDot();
+      calc();
+    });
+  }
+
+  /* ---------- rendimiento ---------- */
+
+  $("preset").addEventListener("change", (e) => {
+    if (e.target.value !== "custom") $("rendimiento").value = e.target.value;
+    calc();
+  });
+
+  $("rendimiento").addEventListener("input", () => {
+    const match = [...$("preset").options].find((o) => o.value === $("rendimiento").value);
+    $("preset").value = match ? match.value : "custom";
+    calc();
+  });
+
+  /* ---------- huecos (puertas / ventanas) ---------- */
+
+  const openingsBox = $("openings");
+
+  function labelOpenings() {
+    let i = 1;
+    for (const row of openingsBox.children) {
+      row.querySelector(".op-qty").setAttribute("aria-label", (lang === "es" ? "Cantidad, hueco " : "Quantity, opening ") + i);
+      row.querySelector(".op-w").setAttribute("aria-label", (lang === "es" ? "Ancho en metros, hueco " : "Width in meters, opening ") + i);
+      row.querySelector(".op-h").setAttribute("aria-label", (lang === "es" ? "Alto en metros, hueco " : "Height in meters, opening ") + i);
+      row.querySelector(".op-del").setAttribute("aria-label", lang === "es" ? "Quitar este hueco" : "Remove this opening");
+      i++;
+    }
+  }
+
+  function addOpening(qty = 1, w = 1, h = 1) {
+    const row = document.createElement("div");
+    row.className = "op-row";
+    row.innerHTML =
+      '<input type="number" class="op-qty" min="0" step="1" inputmode="numeric">' +
+      '<input type="number" class="op-w" min="0" step="0.1" inputmode="decimal">' +
+      '<span class="times">×</span>' +
+      '<input type="number" class="op-h" min="0" step="0.1" inputmode="decimal">' +
+      '<button type="button" class="icon-btn op-del">−</button>';
+    row.querySelector(".op-qty").value = qty;
+    row.querySelector(".op-w").value = w;
+    row.querySelector(".op-h").value = h;
+    row.querySelector(".op-del").addEventListener("click", () => { row.remove(); labelOpenings(); calc(); });
+    openingsBox.appendChild(row);
+    labelOpenings();
+  }
+
+  addOpening(1, 0.9, 2.05);   // puerta típica
+  addOpening(1, 1.2, 1.1);    // ventana típica
+  $("add-opening").addEventListener("click", () => { addOpening(1, 1, 1); calc(); });
+
+  /* ---------- qué botes comprar ---------- */
+
+  function pickCans(need) {
+    if (need <= 0) return [];
+    let best = null;
+    const maxC = Math.ceil(need / 19) + 1;
+    for (let c = 0; c <= maxC; c++) {
+      for (let g = 0; g <= 6; g++) {
+        for (let l = 0; l <= 4; l++) {
+          const vol = c * 19 + g * 3.8 + l;
+          if (vol + 1e-9 < need) continue;
+          const waste = vol - need;
+          const count = c + g + l;
+          if (!best || waste < best.waste - 1e-9 || (Math.abs(waste - best.waste) < 1e-9 && count < best.count)) {
+            best = { waste, count, vol, parts: [c, g, l] };
+          }
+        }
+      }
+    }
+    if (!best) return [];
+    return CANS.map((can, i) => ({ ...can, qty: best.parts[i] })).filter((x) => x.qty > 0);
+  }
+
+  /* ---------- vista isométrica del cuarto ---------- */
+
+  function setFace(id, points, fill) {
+    const el = $(id);
+    if (!el) return;
+    el.setAttribute("points", points);
+    if (fill != null) el.setAttribute("fill", fill);
+  }
+
+  function renderRoom() {
+    if (!$("room-svg")) return;
+    const roomMode = $("modo-cuarto").checked;
+    let W, L, H, colR, colL;
+
+    if (roomMode) {
+      W = num($("ancho")) || 3;
+      L = num($("largo")) || 4;
+      H = num($("alto")) || 2.5;
+      colR = (roomColors[0] && roomColors[0].hex) || "#8B887E";
+      colL = (roomColors[1] && roomColors[1].hex) || colR;
+    } else {
+      const wc = [...wallsBox.querySelectorAll(".w-color")].map((i) => i.value);
+      colR = wc[0] || "#8B887E";
+      colL = wc[1] || colR;
+      W = 4; L = 3; H = 2.6;
+    }
+
+    /* proporciones acotadas para que siempre se vea bien */
+    W = Math.min(Math.max(W, 1), 8);
+    L = Math.min(Math.max(L, 1), 8);
+    H = Math.min(Math.max(H, 1), 5);
+
+    /* proyección isométrica 2:1 (s = 1) */
+    const P = (x, y, z) => [x - y, (x + y) / 2 - z];
+    const A = P(0, 0, 0), B = P(W, 0, 0), C = P(0, L, 0), D = P(W, L, 0),
+          Ap = P(0, 0, H), Bp = P(W, 0, H), Cp = P(0, L, H);
+    const all = [A, B, C, D, Ap, Bp, Cp];
+    const xs = all.map((p) => p[0]), ys = all.map((p) => p[1]);
+    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+    const spanX = (maxX - minX) || 1, spanY = (maxY - minY) || 1;
+
+    const VW = 320, VH = 236, pad = 14;
+    const s = Math.min((VW - 2 * pad) / spanX, (VH - 2 * pad) / spanY);
+    const offX = (VW - spanX * s) / 2 - minX * s;
+    const offY = (VH - spanY * s) / 2 - minY * s;
+    const m = (p) => `${(offX + p[0] * s).toFixed(1)},${(offY + p[1] * s).toFixed(1)}`;
+    const poly = (arr) => arr.map(m).join(" ");
+
+    setFace("rm-floor", poly([A, B, D, C]), "#DCE0E5");
+    setFace("rm-wallR", poly([A, B, Bp, Ap]), colR);
+    setFace("rm-wallL", poly([A, C, Cp, Ap]), colL);
+    setFace("rm-shadeL", poly([A, C, Cp, Ap]));   /* sombra sutil en pared izquierda */
+    setFace("rm-shadeF", poly([A, B, D, C]));     /* sombra sutil en piso */
+  }
+
+  /* ---------- cálculo ---------- */
+
+  function calc() {
+    const roomMode = $("modo-cuarto").checked;
+    const manos = parseInt($("manos").value, 10);
+    const rend = num($("rendimiento")) || 10;
+    const waste = $("merma").checked ? 1.1 : 1;
+    const coatWord = I18N[lang].coat[manos === 1 ? 0 : 1];
+
+    let huecos = 0;
+    for (const row of openingsBox.children) {
+      const q = Math.round(num(row.querySelector(".op-qty")));
+      huecos += q * num(row.querySelector(".op-w")) * num(row.querySelector(".op-h"));
+    }
+
+    /* superficie bruta y agrupación por color */
+    let bruta = 0;
+    const groups = new Map();   // hex -> m² brutos
+
+    if (roomMode) {
+      const L = num($("largo")), A = num($("ancho")), H = num($("alto"));
+      bruta = 2 * (L + A) * H + ($("techo").checked ? L * A : 0);
+      if (bruta > 0) {
+        for (const c of roomColors) {
+          const g = bruta * (c.pct / 100);
+          if (g <= 0) continue;
+          groups.set(c.hex, (groups.get(c.hex) || 0) + g);
+        }
+      }
+    } else {
+      for (const row of wallsBox.children) {
+        const a = num(row.querySelector(".w-ancho")) * num(row.querySelector(".w-alto"));
+        if (a <= 0) continue;
+        bruta += a;
+        const hex = row.querySelector(".w-color").value;
+        groups.set(hex, (groups.get(hex) || 0) + a);
+      }
+    }
+
+    const neta = Math.max(0, bruta - huecos);
+    const cubrir = neta * manos;
+
+    /* cada color se compra por separado; los huecos se reparten proporcional al área */
+    const parts = [...groups.entries()].map(([hex, gross]) => {
+      const net = bruta > 0 ? Math.max(0, gross - huecos * (gross / bruta)) : 0;
+      const litros = (net * manos / rend) * waste;
+      const cans = pickCans(litros);
+      const bought = cans.reduce((s, x) => s + x.vol * x.qty, 0);
+      return { hex, gross, net, litros, cans, bought };
+    }).sort((a, b) => b.net - a.net);
+
+    const totalLitros = parts.reduce((s, p) => s + p.litros, 0);
+    const totalBought = parts.reduce((s, p) => s + p.bought, 0);
+    const multi = parts.length > 1;
+    const dom = parts[0];
+
+    /* tarjeta principal — tinte del color dominante */
+    setTint(dom ? dom.hex : "#8B887E");
+    $("litros").textContent = totalLitros > 0 ? nf(totalLitros, totalLitros < 10 ? 1 : 0) : "0";
+    $("chip-sub").textContent = totalLitros > 0
+      ? (multi
+          ? `${nf(neta)} m² · ${parts.length} ${t("colorsWord")} · ${manos} ${coatWord}`
+          : `${nf(neta)} m² · ${manos} ${coatWord} · ${nf(rend)} m²/L`)
+      : t("buyEmpty");
+
+    /* lista de compra */
+    const buy = $("buy");
+    if (totalLitros <= 0) {
+      buy.innerHTML = "";
+      $("buy-empty").hidden = false;
+    } else {
+      $("buy-empty").hidden = true;
+      if (!multi) {
+        buy.innerHTML = parts[0].cans.map(canRow).join("");
+      } else {
+        buy.innerHTML = parts.map((p) => {
+          const cans = p.cans.length ? p.cans.map(canRow).join("") : `<div class="cg-empty">—</div>`;
+          return `<div class="cgroup"><div class="cghead">`
+            + `<span class="dot" style="background:${p.hex}"></span>`
+            + `<span class="cg-name">${colorName(p.hex)}</span>`
+            + `<span class="cg-meta">${nf(p.net)} m² · ${nf(p.litros)} L</span>`
+            + `</div>${cans}</div>`;
+        }).join("");
+      }
+    }
+
+    /* desglose */
+    $("t-bruta").textContent = bruta > 0 ? `${nf(bruta)} m²` : "—";
+    $("t-huecos").textContent = huecos > 0 ? `− ${nf(huecos)} m²` : "—";
+    $("t-neta").textContent = neta > 0 ? `${nf(neta)} m²` : "—";
+    $("k-coats").textContent = t("rCoats").replace("{n}", manos);
+    $("t-cubrir").textContent = cubrir > 0 ? `${nf(cubrir)} m²` : "—";
+    $("t-litros").textContent = totalLitros > 0 ? `${nf(totalLitros)} L` : "—";
+    $("t-sobra").textContent = totalBought > 0 ? `${nf(totalBought - totalLitros)} L` : "—";
+
+    const precio = num($("precio"));
+    $("row-costo").hidden = !(precio > 0 && totalBought > 0);
+    if (precio > 0 && totalBought > 0) $("t-costo").textContent = money(precio * totalBought);
+
+    $("note-primer").hidden = rend > 7;
+
+    renderRoom();
+  }
+
+  $("form").addEventListener("input", calc);
+  $("form").addEventListener("change", calc);
+
+  applyLang();
+</script>
