@@ -166,6 +166,34 @@ a { color: var(--accent); }
 .prose p { margin: 0 0 1.4rem; }
 .prose p:last-child { margin-bottom: 0; }
 
+/* Texto introductorio bajo el titulo de una seccion */
+.section-intro {
+  max-width: 46rem;
+  margin: -1.6rem 0 2.8rem;
+  color: var(--text-soft);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* Cada año es un bloque con su encabezado */
+.year-group { margin-bottom: 4.5rem; }
+.year-group:last-child { margin-bottom: 0; }
+
+.year-heading {
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  margin: 0 0 1.8rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Ficha de la instalacion */
+.install-info { max-width: 46rem; margin: 0 0 2.6rem; }
+.install-info h3 { font-size: 1.3rem; font-weight: 400; margin: 0 0 0.4rem; }
+
 /* ---------- 6. GALERIA DE OBRAS ---------- */
 /* grid = cuadricula. auto-fill acomoda las columnas solo,
    segun el ancho de la pantalla. */
@@ -277,6 +305,12 @@ a { color: var(--accent); }
   border: 1px solid var(--line);
   padding: 0.1rem 0.5rem;
   align-self: center;
+}
+
+/* Etiqueta para una exposicion individual (resaltada) */
+.tag-solo {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ---------- 9. CONTACTO ---------- */

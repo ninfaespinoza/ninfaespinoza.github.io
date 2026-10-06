@@ -27,10 +27,14 @@ document.querySelectorAll('.work').forEach(function (work) {
     lightImg.src = img.src;
     lightImg.alt = img.alt;
 
-    // Armamos el texto de abajo con el titulo y los datos
-    const title = work.querySelector('h3').textContent;
-    const meta  = work.querySelector('.work-meta').textContent;
-    lightCap.textContent = title + ' — ' + meta;
+    // Armamos el texto de abajo con el titulo y los datos.
+    // Algunas figuras (la instalacion) no tienen h3 o meta, asi que
+    // revisamos que existan antes de usarlos.
+    const titleEl = work.querySelector('h3');
+    const metaEl  = work.querySelector('.work-meta');
+    let cap = titleEl ? titleEl.textContent : '';
+    if (metaEl) { cap += (cap ? ' — ' : '') + metaEl.textContent; }
+    lightCap.textContent = cap;
 
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';  // congela el scroll de atras

@@ -7,23 +7,24 @@
   como esta organizado. Los colores y el diseno estan en
   style.css, y la interactividad en script.js.
 
-  Para cambiar un texto, buscalo aqui y escribe encima.
+  La obra esta dividida en dos secciones:
+    - Painting : pinturas agrupadas por año (de nuevo a viejo)
+    - Installation : la instalacion Estacion y camino
+
+  Para agregar una obra nueva, copia un bloque <figure class="work">
+  completo dentro del grupo del año que corresponda y cambia la
+  imagen y los textos.
   ============================================================
 -->
 <html lang="en">
 <head>
-  <!-- Le dice al navegador que el texto usa acentos y enes -->
   <meta charset="UTF-8">
-  <!-- Hace que la pagina se vea bien en celulares -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- El texto que aparece en la pestana del navegador -->
   <title>Ninfa Espinoza — Contemporary Visual Artist</title>
 
-  <!-- Descripcion que muestra Google en los resultados de busqueda -->
-  <meta name="description" content="Ninfa Espinoza (b. 1992) is a Honduran visual artist based in San Pedro Sula. Her paintings explore everyday life, urban space, and collective memory.">
+  <meta name="description" content="Ninfa Espinoza (b. 1992) is a Honduran visual artist based in San Pedro Sula. Her paintings and installations explore everyday life, informal labor, urban space, and collective memory.">
 
-  <!-- Conecta este archivo con la hoja de estilos -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -33,8 +34,8 @@
   <header class="site-header">
     <a href="#top" class="logo">Ninfa Espinoza</a>
     <nav>
-      <a href="#works">Works</a>
-      <a href="#statement">Statement</a>
+      <a href="#painting">Painting</a>
+      <a href="#installation">Installation</a>
       <a href="#about">About</a>
       <a href="#cv">CV</a>
       <a href="#contact">Contact</a>
@@ -46,135 +47,319 @@
     <p class="hero-eyebrow">Contemporary Visual Artist</p>
     <h1>Ninfa Espinoza</h1>
     <p class="hero-sub">Painting the quiet narratives of everyday life in Honduras.</p>
-    <a href="#works" class="button">View works</a>
+    <a href="#painting" class="button">View works</a>
   </section>
 
-  <!-- ========== GALERIA DE OBRAS ========== -->
-  <section id="works" class="section">
-    <h2 class="section-title">Works</h2>
+  <!-- ========== PINTURA (por años) ========== -->
+  <section id="painting" class="section">
+    <h2 class="section-title">Painting</h2>
 
-    <!--
-      Cada <figure> es una obra. Para agregar una nueva, copia
-      un bloque completo y cambia la imagen y los textos.
-      El atributo alt describe la imagen para personas ciegas.
-    -->
-    <div class="gallery">
+    <!-- ----- 2026 ----- -->
+    <div class="year-group">
+      <h3 class="year-heading">2026</h3>
+      <p class="section-intro">Works from <em>Intercambios cotidianos</em> — the artist's first solo exhibition, Centro Cultural Sampedrano, San Pedro Sula, 2026.</p>
+      <div class="gallery">
 
-      <figure class="work">
-        <img src="images/works/tierno-desborde.jpg" alt="Tierno Desborde — mixed media painting of a face split between a painted grayscale scream and a photographic child's eye" loading="lazy">
-        <figcaption>
-          <h3>Tierno Desborde</h3>
-          <p class="work-meta">2025 · Mixed media · 70 × 70 cm</p>
-          <p class="work-note">Selected for <em>Te odio: el odio como estrategia de poder y control político y social</em>, Centro Cultural de España, Costa Rica, 2025</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/regreso-a-casa.jpg" alt="Regreso a casa — night street scene, a cotton-candy vendor with a bicycle under a highway overpass beside an ALTO stop sign" loading="lazy">
+          <figcaption>
+            <h3>Regreso a casa</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 90 × 60 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/amor-para-llevar.jpg" alt="Amor Para Llevar — mixed media painting" loading="lazy">
-        <figcaption>
-          <h3>Amor Para Llevar</h3>
-          <p class="work-meta">2026 · Mixed media · 60 × 60 cm</p>
-          <p class="work-note">Selected for <em>Esencia de Mujer</em>, Centro Cultural Sampedrano, 2026</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/amor-para-llevar.jpg" alt="Amor Para Llevar — mixed media painting" loading="lazy">
+          <figcaption>
+            <h3>Amor Para Llevar</h3>
+            <p class="work-meta">2026 · Mixed media · 60 × 60 cm</p>
+            <p class="work-note">Selected for <em>Esencia de Mujer</em>, Centro Cultural Sampedrano, 2026</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/transitando-en-resiliencia.jpg" alt="Transitando en Resiliencia — mixed media painting" loading="lazy">
-        <figcaption>
-          <h3>Transitando en Resiliencia</h3>
-          <p class="work-meta">2025 · Mixed media · 100 × 100 cm</p>
-          <p class="work-note">Selected for the XXXV National Art Salon, Centro Cultural Sampedrano, 2025</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/entre-carros.jpg" alt="Entre carros — a cotton-candy vendor glimpsed between parked cars, teal and newspaper-collage background" loading="lazy">
+          <figcaption>
+            <h3>Entre carros</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 60 × 60 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/lazos-de-ninez-al-atardecer.jpg" alt="Lazos de niñez al atardecer — mixed media painting" loading="lazy">
-        <figcaption>
-          <h3>Lazos de niñez al atardecer</h3>
-          <p class="work-meta">2025 · Mixed media · 80 × 80 cm</p>
-          <p class="work-note">Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/fuera-de-foco.jpg" alt="Fuera de foco — tall narrow painting, a blurred figure in green beside pink cotton candy over newspaper collage" loading="lazy">
+          <figcaption>
+            <h3>Fuera de foco</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 50 × 20 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/serena-compania-en-la-esperanza.jpg" alt="Serena compañía en la esperanza — mixed media painting" loading="lazy">
-        <figcaption>
-          <h3>Serena compañía en la esperanza</h3>
-          <p class="work-meta">2025 · Mixed media · 100 × 70 cm</p>
-          <p class="work-note">Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/a-traves-del-sol-que-brilla.jpg" alt="A través del sol que brilla — a woman carries a basin on her head crossing a sunlit yellow street" loading="lazy">
+          <figcaption>
+            <h3>A través del sol que brilla</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 100 × 80 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/vendedoras-de-nances.jpg" alt="Vendedoras de Nances — mixed media painting of street vendors" loading="lazy">
-        <figcaption>
-          <h3>Vendedoras de Nances</h3>
-          <p class="work-meta">2024 · Mixed media · 90 × 60 cm</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/audaz-entrega.jpg" alt="Audaz entrega — two figures balanced acrobatically, one standing on another's shoulders juggling, purple street scene" loading="lazy">
+          <figcaption>
+            <h3>Audaz entrega</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 120 × 80 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/helados-en-la-avenida.jpg" alt="Helados en la avenida — painting of an ice cream vendor pushing a cart past pigeons on a city street" loading="lazy">
-        <figcaption>
-          <h3>Helados en la avenida</h3>
-          <p class="work-meta">2023 · Mixed media · 70 × 50 cm</p>
-          <p class="work-note">Honorable Mention, New Artist — XXXIII National Art Salon, Centro Cultural Sampedrano, 2023</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/de-la-tradicion-a-la-venta.jpg" alt="De la tradición a la venta — a vendor behind stacks of traditional breads and sweets, lilac background" loading="lazy">
+          <figcaption>
+            <h3>De la tradición a la venta</h3>
+            <p class="work-meta">2026 · Acrylic on canvas · 60 × 90 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/yaxis.jpg" alt="Yaxis — mixed media painting" loading="lazy">
-        <figcaption>
-          <h3>Yaxis</h3>
-          <p class="work-meta">2024 · Mixed media · 60 × 60 cm</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/el-puesto-por-las-vias.jpg" alt="El puesto por las vías — a colorful hot-dog street cart with umbrellas and a railroad-crossing sign" loading="lazy">
+          <figcaption>
+            <h3>El puesto por las vías</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 100 × 70 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/vida-transitoria.jpg" alt="Vida transitoria — mixed media painting" loading="lazy">
-        <figcaption>
-          <h3>Vida transitoria</h3>
-          <p class="work-meta">2023 · Mixed media · 50 × 40 cm</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/familia-en-el-negocio.jpg" alt="Familia en el negocio — a bread vendor surrounded by hanging bags of bread, lilac background" loading="lazy">
+          <figcaption>
+            <h3>Familia en el negocio</h3>
+            <p class="work-meta">2026 · Acrylic on canvas · 70 × 100 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/guajacas.jpg" alt="Guajacas — mixed media painting" loading="lazy">
-        <figcaption>
-          <h3>Guajacas</h3>
-          <p class="work-meta">2024 · Mixed media · 100 × 100 cm</p>
-          <p class="work-note">XXXIV National Art Salon, Centro Cultural Sampedrano, 2024</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/produccion-y-memoria.jpg" alt="Producción y memoria — triptych of green, orange and blue panels holding rows of real cotton candy" loading="lazy">
+          <figcaption>
+            <h3>Producción y memoria</h3>
+            <p class="work-meta">2026 · Mixed media (miniature cotton candy series) on canvas · Triptych, 80 × 80 cm each</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/downtown-at-noon.jpg" alt="Downtown at noon — acrylic painting of a city street at midday" loading="lazy">
-        <figcaption>
-          <h3>Downtown at noon</h3>
-          <p class="work-meta">2020 · Acrylic on canvas · 50 × 70 cm</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/sin-titulo-i.jpg" alt="Sin título I — small framed piece, pink cotton candy in a plastic bag over a newspaper and photo collage" loading="lazy">
+          <figcaption>
+            <h3>Sin título I</h3>
+            <p class="work-meta">2026 · Mixed media (paper collage and object) on paper, framed · 15 × 15 cm</p>
+          </figcaption>
+        </figure>
 
-      <figure class="work">
-        <img src="images/works/buscando-la-libertad.jpg" alt="Buscando la libertad — acrylic painting" loading="lazy">
-        <figcaption>
-          <h3>Buscando la libertad</h3>
-          <p class="work-meta">2019 · Acrylic on canvas · 70 × 100 cm</p>
-        </figcaption>
-      </figure>
+        <figure class="work">
+          <img src="images/works/bici-cargada.jpg" alt="Bici cargada — mixed media painting by Ninfa Espinoza" loading="lazy">
+          <figcaption>
+            <h3>Bici cargada</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 60 × 60 cm</p>
+          </figcaption>
+        </figure>
 
+        <figure class="work">
+          <img src="images/works/en-la-pasada.jpg" alt="En la pasada — acrylic painting by Ninfa Espinoza" loading="lazy">
+          <figcaption>
+            <h3>En la pasada</h3>
+            <p class="work-meta">2026 · Acrylic on canvas · 60 × 90 cm</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/en-la-prisa-y-lo-temporal.jpg" alt="En la prisa y lo temporal — acrylic painting by Ninfa Espinoza" loading="lazy">
+          <figcaption>
+            <h3>En la prisa y lo temporal</h3>
+            <p class="work-meta">2026 · Acrylic on canvas · 70 × 100 cm</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/silencio-a-alta-noche.jpg" alt="Silencio a alta noche — mixed media painting by Ninfa Espinoza" loading="lazy">
+          <figcaption>
+            <h3>Silencio a alta noche</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 80 × 80 cm</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/sin-titulo-ii.jpg" alt="Sin título II — diptych, two small canvases with pink cotton candy over blue newspaper" loading="lazy">
+          <figcaption>
+            <h3>Sin título II</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic, paper collage and object) on canvas · Diptych, 15 × 10 cm each</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/temporada.jpg" alt="Temporada — mixed media painting by Ninfa Espinoza" loading="lazy">
+          <figcaption>
+            <h3>Temporada</h3>
+            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 80 × 80 cm</p>
+          </figcaption>
+        </figure>
+
+      </div>
     </div>
+
+    <!-- ----- 2025 ----- -->
+    <div class="year-group">
+      <h3 class="year-heading">2025</h3>
+      <div class="gallery">
+
+        <figure class="work">
+          <img src="images/works/tierno-desborde.jpg" alt="Tierno Desborde — mixed media painting of a face split between a painted grayscale scream and a photographic child's eye" loading="lazy">
+          <figcaption>
+            <h3>Tierno Desborde</h3>
+            <p class="work-meta">2025 · Mixed media · 70 × 70 cm</p>
+            <p class="work-note">Selected for <em>Te odio: el odio como estrategia de poder y control político y social</em>, Centro Cultural de España, Costa Rica, 2025</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/transitando-en-resiliencia.jpg" alt="Transitando en Resiliencia — mixed media painting of a coconut vendor under orange and purple umbrellas" loading="lazy">
+          <figcaption>
+            <h3>Transitando en Resiliencia</h3>
+            <p class="work-meta">2025 · Mixed media · 100 × 100 cm</p>
+            <p class="work-note">Selected for the XXXV National Art Salon, Centro Cultural Sampedrano, 2025</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/lazos-de-ninez-al-atardecer.jpg" alt="Lazos de niñez al atardecer — mixed media painting" loading="lazy">
+          <figcaption>
+            <h3>Lazos de niñez al atardecer</h3>
+            <p class="work-meta">2025 · Mixed media · 80 × 80 cm</p>
+            <p class="work-note">Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/serena-compania-en-la-esperanza.jpg" alt="Serena compañía en la esperanza — mixed media painting" loading="lazy">
+          <figcaption>
+            <h3>Serena compañía en la esperanza</h3>
+            <p class="work-meta">2025 · Mixed media · 100 × 70 cm</p>
+            <p class="work-note">Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
+    <!-- ----- 2024 ----- -->
+    <div class="year-group">
+      <h3 class="year-heading">2024</h3>
+      <div class="gallery">
+
+        <figure class="work">
+          <img src="images/works/vendedoras-de-nances.jpg" alt="Vendedoras de Nances — mixed media painting of street vendors" loading="lazy">
+          <figcaption>
+            <h3>Vendedoras de Nances</h3>
+            <p class="work-meta">2024 · Mixed media · 90 × 60 cm</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/yaxis.jpg" alt="Yaxis — mixed media painting" loading="lazy">
+          <figcaption>
+            <h3>Yaxis</h3>
+            <p class="work-meta">2024 · Mixed media · 60 × 60 cm</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/guajacas.jpg" alt="Guajacas — mixed media painting" loading="lazy">
+          <figcaption>
+            <h3>Guajacas</h3>
+            <p class="work-meta">2024 · Mixed media · 100 × 100 cm</p>
+            <p class="work-note">XXXIV National Art Salon, Centro Cultural Sampedrano, 2024</p>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
+    <!-- ----- 2023 ----- -->
+    <div class="year-group">
+      <h3 class="year-heading">2023</h3>
+      <div class="gallery">
+
+        <figure class="work">
+          <img src="images/works/helados-en-la-avenida.jpg" alt="Helados en la avenida — painting of an ice cream vendor pushing a cart past pigeons on a city street" loading="lazy">
+          <figcaption>
+            <h3>Helados en la avenida</h3>
+            <p class="work-meta">2023 · Mixed media · 70 × 50 cm</p>
+            <p class="work-note">Honorable Mention, New Artist — XXXIII National Art Salon, Centro Cultural Sampedrano, 2023</p>
+          </figcaption>
+        </figure>
+
+        <figure class="work">
+          <img src="images/works/vida-transitoria.jpg" alt="Vida transitoria — mixed media painting" loading="lazy">
+          <figcaption>
+            <h3>Vida transitoria</h3>
+            <p class="work-meta">2023 · Mixed media · 50 × 40 cm</p>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
+    <!-- ----- 2020 ----- -->
+    <div class="year-group">
+      <h3 class="year-heading">2020</h3>
+      <div class="gallery">
+
+        <figure class="work">
+          <img src="images/works/downtown-at-noon.jpg" alt="Downtown at noon — acrylic painting of a city street at midday" loading="lazy">
+          <figcaption>
+            <h3>Downtown at noon</h3>
+            <p class="work-meta">2020 · Acrylic on canvas · 50 × 70 cm</p>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
+    <!-- ----- 2019 ----- -->
+    <div class="year-group">
+      <h3 class="year-heading">2019</h3>
+      <div class="gallery">
+
+        <figure class="work">
+          <img src="images/works/buscando-la-libertad.jpg" alt="Buscando la libertad — acrylic painting" loading="lazy">
+          <figcaption>
+            <h3>Buscando la libertad</h3>
+            <p class="work-meta">2019 · Acrylic on canvas · 70 × 100 cm</p>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
   </section>
 
-  <!-- ========== STATEMENT DE ARTISTA ========== -->
-  <section id="statement" class="section section-narrow">
-    <h2 class="section-title">Artist Statement</h2>
-    <div class="prose">
-      <p>My artistic practice explores the intricate relationship between people, everyday life, and the spaces they inhabit. Through painting, I examine ordinary moments, daily routines, and human interactions as micro-reflections of broader social realities. I am drawn to the quiet narratives embedded within urban environments: the subtle gestures, shared memories, and unspoken struggles that often go unnoticed, yet reveal the profound complexity of the human experience.</p>
+  <!-- ========== INSTALACION ========== -->
+  <section id="installation" class="section">
+    <h2 class="section-title">Installation</h2>
 
-      <p>My work focuses on the vulnerability, resilience, and beauty found in daily life, with a particular emphasis on communities shaped by labor, kinship, and communal spaces. I investigate how individuals construct meaning and identity through their surroundings, transforming mundane settings into rich landscapes of emotion and collective memory.</p>
+    <div class="install-info prose">
+      <h3>Estación y camino</h3>
+      <p class="work-meta">2026 · Installation — plastic stools, newspaper, variable spatial arrangement · Variable dimensions</p>
+      <p>A line of colorful plastic stools — ordinary objects of the Latin American street — traces the constant movement of the informal vendor, each stool a momentary stop within a routine of mobility, waiting and adaptation. Beneath them runs a path of newspaper carrying the day's political, social and economic headlines, placing these precarious daily economies literally over the flow of events that crosses society. Part of <em>Intercambios cotidianos</em>, the artist's first solo exhibition.</p>
+    </div>
 
-      <p>Informed by my background in interior design, I approach the canvas not just as a composition, but as a container of human experience, viewing space as something deeply narrative rather than merely structural. Ultimately, my practice seeks to create visual testimonies that bridge personal histories with universal emotions, highlighting the invisible threads that connect us across different contexts.</p>
+    <div class="gallery">
+      <figure class="work">
+        <img src="images/installation/estacion-y-camino-1.jpg" alt="Estación y camino — installation view: a line of seven colorful plastic stools on sheets of newspaper, paintings on the gallery wall behind" loading="lazy">
+        <figcaption>
+          <p class="work-note">Installation view</p>
+        </figcaption>
+      </figure>
+
+      <figure class="work">
+        <img src="images/installation/estacion-y-camino-2.jpg" alt="Estación y camino — installation view with the Intercambios cotidianos title wall and the plastic stools arranged on newspaper" loading="lazy">
+        <figcaption>
+          <p class="work-note">Installation view — <em>Intercambios cotidianos</em> title wall</p>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -205,6 +390,7 @@
 
     <h3 class="cv-heading">Exhibitions</h3>
     <ul class="cv-list">
+      <li><span class="year">2026</span> <em>Intercambios cotidianos</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag tag-solo">Solo</span></li>
       <li><span class="year">2026</span> <em>Te Odio</em> — Centro Cultural de España, Tegucigalpa, Honduras <span class="tag">Group</span></li>
       <li><span class="year">2026</span> <em>Esencia de Mujer</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag">Group</span></li>
       <li><span class="year">2025</span> <em>Te Odio</em> — Centro Cultural de España, San José, Costa Rica <span class="tag">Group</span></li>
@@ -265,7 +451,6 @@
     <p id="lightbox-caption"></p>
   </div>
 
-  <!-- Conecta este archivo con el JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
