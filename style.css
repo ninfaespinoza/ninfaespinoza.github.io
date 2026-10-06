@@ -412,6 +412,56 @@ a { color: var(--accent); }
 /* El atributo hidden debe ganarle al display:inline-block */
 .lightbox-inquire[hidden] { display: none; }
 
+/* Formulario de consulta (se despliega al tocar Inquire) */
+.inquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 0.3rem;
+}
+
+.inquiry-form[hidden] { display: none; }
+
+.inquiry-form input,
+.inquiry-form textarea {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.7rem;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.inquiry-form input:focus,
+.inquiry-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.inquiry-form button {
+  cursor: pointer;
+  background: none;
+  align-self: center;
+  margin-top: 0.2rem;
+}
+
+.inquiry-status {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  text-align: center;
+  margin: 0.2rem 0 0;
+  max-width: 420px;
+}
+
+.inquiry-status.ok  { color: var(--accent); }
+.inquiry-status.err { color: #b4453b; }
+
 @media (max-width: 760px) {
   #lightbox-img { max-height: 68vh; }
 }

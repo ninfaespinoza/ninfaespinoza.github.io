@@ -457,12 +457,21 @@
       <img id="lightbox-img" src="" alt="">
       <p id="lightbox-caption"></p>
       <!--
-        Enlace "Inquire": al tocarlo abre la app de correo del visitante
-        con un mensaje ya escrito y dirigido a la artista, con el titulo
-        de la obra en el asunto. script.js arma el enlace al abrir la obra.
-        Se oculta en la instalacion (no esta a la venta).
+        "Inquire": al tocarlo se despliega el formulario de abajo. Al
+        enviarlo, script.js lo manda por Formspree (sin abrir la app de
+        correo del visitante) y la consulta llega a la artista. Todo
+        esto se oculta en la instalacion (no esta a la venta).
       -->
       <a id="lightbox-inquire" class="lightbox-inquire" href="#">Inquire</a>
+      <form id="inquiry-form" class="inquiry-form" hidden>
+        <input type="text" name="name" placeholder="Your name" autocomplete="name">
+        <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+        <textarea name="message" rows="4" placeholder="Your message…" required></textarea>
+        <input type="hidden" name="_subject" id="inquiry-subject" value="">
+        <input type="hidden" name="artwork" id="inquiry-artwork" value="">
+        <button type="submit" class="button">Send</button>
+      </form>
+      <p class="inquiry-status" id="inquiry-status" role="status"></p>
     </div>
   </div>
 

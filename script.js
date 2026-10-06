@@ -19,22 +19,30 @@ const lightImg  = document.querySelector('#lightbox-img');
 const lightCap  = document.querySelector('#lightbox-caption');
 const closeBtn  = document.querySelector('.lightbox-close');
 
-// Enlace "Inquire" del visor
-const inquireLink  = document.querySelector('#lightbox-inquire');
-const ARTIST_EMAIL = 'ninfaespinozam@gmail.com';
+// Consulta (inquiry) del visor — se envia por Formspree sin salir del sitio.
+const inquireLink    = document.querySelector('#lightbox-inquire');
+const inquiryForm    = document.querySelector('#inquiry-form');
+const inquiryStatus  = document.querySelector('#inquiry-status');
+const inquirySubject = document.querySelector('#inquiry-subject');
+const inquiryArtwork = document.querySelector('#inquiry-artwork');
+const inquiryMessage = inquiryForm.querySelector('textarea[name="message"]');
+const ARTIST_EMAIL   = 'ninfaespinozam@gmail.com';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xoejvqoj';
+let currentTitle = '';
 
-// Arma el enlace mailto para una obra: asunto con el titulo y un
-// mensaje por defecto que el visitante puede editar antes de enviar.
-function buildInquireHref(title) {
-  const subject = 'Inquire: ' + title;
-  const body =
-    'Hello Ninfa,\n\n' +
-    'I am interested in "' + title + '". ' +
-    'Could you tell me more about its availability and price?\n\n' +
-    'Thank you.';
-  return 'mailto:' + ARTIST_EMAIL +
-    '?subject=' + encodeURIComponent(subject) +
-    '&body=' + encodeURIComponent(body);
+// Deja la consulta lista para una obra nueva: enlace visible, formulario
+// oculto, campos reiniciados y el titulo cargado en el asunto y el mensaje.
+function resetInquiry() {
+  inquiryForm.reset();
+  inquiryForm.hidden = true;
+  inquireLink.hidden = false;
+  inquiryStatus.textContent = '';
+  inquiryStatus.className = 'inquiry-status';
+  inquirySubject.value = 'Inquire: ' + currentTitle;
+  inquiryArtwork.value = currentTitle;
+  inquiryMessage.value =
+    'I am interested in "' + currentTitle + '". ' +
+    'Could you tell me more about its availability and price?';
 }
 
 // Abrir: recorremos cada obra y le decimos que hacer al clic
@@ -54,18 +62,57 @@ document.querySelectorAll('.work').forEach(function (work) {
     if (metaEl) { cap += (cap ? ' — ' : '') + metaEl.textContent; }
     lightCap.textContent = cap;
 
-    // El enlace "Inquire" solo aparece en obras con titulo (las pinturas).
-    // La instalacion no tiene titulo por figura y no esta a la venta,
-    // asi que ahi lo ocultamos.
-    if (titleEl) {
-      inquireLink.href = buildInquireHref(titleEl.textContent);
-      inquireLink.hidden = false;
+    // La consulta solo aparece en obras con titulo (las pinturas).
+    // La instalacion no tiene titulo por figura y no esta a la venta.
+    currentTitle = titleEl ? titleEl.textContent : '';
+    if (currentTitle) {
+      resetInquiry();
     } else {
       inquireLink.hidden = true;
+      inquiryForm.hidden = true;
+      inquiryStatus.textContent = '';
     }
 
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';  // congela el scroll de atras
+  });
+});
+
+// Al tocar "Inquire" se despliega el formulario.
+inquireLink.addEventListener('click', function (event) {
+  event.preventDefault();
+  inquireLink.hidden = true;
+  inquiryForm.hidden = false;
+  const emailField = inquiryForm.querySelector('input[name="email"]');
+  if (emailField) { emailField.focus(); }
+});
+
+// Enviar la consulta por Formspree (sin abrir la app de correo).
+inquiryForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const btn = inquiryForm.querySelector('button[type="submit"]');
+  inquiryStatus.className = 'inquiry-status';
+  inquiryStatus.textContent = 'Sending…';
+  if (btn) { btn.disabled = true; }
+
+  fetch(FORMSPREE_ENDPOINT, {
+    method: 'POST',
+    body: new FormData(inquiryForm),
+    headers: { 'Accept': 'application/json' }
+  }).then(function (response) {
+    if (response.ok) {
+      inquiryForm.hidden = true;
+      inquiryStatus.className = 'inquiry-status ok';
+      inquiryStatus.textContent = 'Thank you — your message has been sent.';
+    } else {
+      inquiryStatus.className = 'inquiry-status err';
+      inquiryStatus.textContent = 'Something went wrong. Please email ' + ARTIST_EMAIL + '.';
+    }
+  }).catch(function () {
+    inquiryStatus.className = 'inquiry-status err';
+    inquiryStatus.textContent = 'Something went wrong. Please email ' + ARTIST_EMAIL + '.';
+  }).then(function () {
+    if (btn) { btn.disabled = false; }
   });
 });
 
