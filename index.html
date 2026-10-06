@@ -453,8 +453,17 @@
   -->
   <div id="lightbox" class="lightbox" hidden>
     <button class="lightbox-close" aria-label="Close">&times;</button>
-    <img id="lightbox-img" src="" alt="">
-    <p id="lightbox-caption"></p>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <p id="lightbox-caption"></p>
+      <!--
+        Enlace "Inquire": al tocarlo abre la app de correo del visitante
+        con un mensaje ya escrito y dirigido a la artista, con el titulo
+        de la obra en el asunto. script.js arma el enlace al abrir la obra.
+        Se oculta en la instalacion (no esta a la venta).
+      -->
+      <a id="lightbox-inquire" class="lightbox-inquire" href="#">Inquire</a>
+    </div>
   </div>
 
   <script src="script.js"></script>

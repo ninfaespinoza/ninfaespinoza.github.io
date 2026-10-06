@@ -19,6 +19,24 @@ const lightImg  = document.querySelector('#lightbox-img');
 const lightCap  = document.querySelector('#lightbox-caption');
 const closeBtn  = document.querySelector('.lightbox-close');
 
+// Enlace "Inquire" del visor
+const inquireLink  = document.querySelector('#lightbox-inquire');
+const ARTIST_EMAIL = 'ninfaespinozam@gmail.com';
+
+// Arma el enlace mailto para una obra: asunto con el titulo y un
+// mensaje por defecto que el visitante puede editar antes de enviar.
+function buildInquireHref(title) {
+  const subject = 'Inquire: ' + title;
+  const body =
+    'Hello Ninfa,\n\n' +
+    'I am interested in "' + title + '". ' +
+    'Could you tell me more about its availability and price?\n\n' +
+    'Thank you.';
+  return 'mailto:' + ARTIST_EMAIL +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(body);
+}
+
 // Abrir: recorremos cada obra y le decimos que hacer al clic
 document.querySelectorAll('.work').forEach(function (work) {
   const img = work.querySelector('img');
@@ -36,6 +54,16 @@ document.querySelectorAll('.work').forEach(function (work) {
     if (metaEl) { cap += (cap ? ' — ' : '') + metaEl.textContent; }
     lightCap.textContent = cap;
 
+    // El enlace "Inquire" solo aparece en obras con titulo (las pinturas).
+    // La instalacion no tiene titulo por figura y no esta a la venta,
+    // asi que ahi lo ocultamos.
+    if (titleEl) {
+      inquireLink.href = buildInquireHref(titleEl.textContent);
+      inquireLink.hidden = false;
+    } else {
+      inquireLink.hidden = true;
+    }
+
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';  // congela el scroll de atras
   });
@@ -49,9 +77,11 @@ function closeLightbox() {
 
 closeBtn.addEventListener('click', closeLightbox);
 
-// Clic en el fondo negro (pero no sobre la imagen) tambien cierra
+// Clic en el fondo (pero no sobre la obra ni el panel) tambien cierra
 lightbox.addEventListener('click', function (event) {
-  if (event.target === lightbox) {
+  if (event.target === lightbox ||
+      event.target.classList.contains('lightbox-content') ||
+      event.target.classList.contains('lightbox-stage')) {
     closeLightbox();
   }
 });

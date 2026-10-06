@@ -362,21 +362,58 @@ a { color: var(--accent); }
 /* hidden es un atributo de HTML; esto asegura que lo respete */
 .lightbox[hidden] { display: none; }
 
-.lightbox img {
+/* Dentro del visor: obra, pie de foto y el enlace Inquire, centrados */
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+#lightbox-img {
   max-width: 100%;
-  max-height: 78vh;
+  max-height: 74vh;
   object-fit: contain;
   /* Sombra suave para despegar la obra del fondo blanco */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.14);
 }
 
-.lightbox p {
+#lightbox-caption {
   font-family: system-ui, sans-serif;
   font-size: 0.85rem;
   color: var(--text-soft);
   text-align: center;
   margin: 0;
   max-width: 44rem;
+}
+
+/* Enlace "Inquire" centrado debajo de la obra */
+.lightbox-inquire {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 3px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.lightbox-inquire:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* El atributo hidden debe ganarle al display:inline-block */
+.lightbox-inquire[hidden] { display: none; }
+
+@media (max-width: 760px) {
+  #lightbox-img { max-height: 68vh; }
 }
 
 .lightbox-close {
