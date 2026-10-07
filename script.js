@@ -62,15 +62,17 @@ document.querySelectorAll('.work').forEach(function (work) {
     if (metaEl) { cap += (cap ? ' — ' : '') + metaEl.textContent; }
     lightCap.textContent = cap;
 
-    // La consulta solo aparece en obras con titulo (las pinturas).
-    // La instalacion no tiene titulo por figura y no esta a la venta.
+    // La consulta solo aparece en pinturas disponibles. Se oculta en la
+    // instalacion (no esta a la venta) y en las obras marcadas como vendidas.
+    const isSold = work.classList.contains('sold');
     currentTitle = titleEl ? titleEl.textContent : '';
-    if (currentTitle) {
+    if (currentTitle && !isSold) {
       resetInquiry();
     } else {
       inquireLink.hidden = true;
       inquiryForm.hidden = true;
-      inquiryStatus.textContent = '';
+      inquiryStatus.className = 'inquiry-status';
+      inquiryStatus.textContent = isSold ? 'This work is sold.' : '';
     }
 
     lightbox.hidden = false;

@@ -244,6 +244,24 @@ a { color: var(--accent); }
   line-height: 1.5;
 }
 
+/* Marca "Sold" bajo el titulo de una obra vendida.
+   El punto (●) antes de la palabra la hace mas visible sin gritar. */
+.work-sold {
+  font-family: system-ui, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0.4rem 0 0.1rem;
+}
+
+.work-sold::before {
+  content: "●";
+  font-size: 0.6em;
+  vertical-align: middle;
+  margin-right: 0.45em;
+}
+
 /* ---------- 7. SECCION "ABOUT" ---------- */
 .about-layout {
   display: grid;
