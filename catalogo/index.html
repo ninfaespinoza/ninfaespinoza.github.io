@@ -25,6 +25,7 @@
       transition:border-color .15s,color .15s; white-space:nowrap; }
     .dl:hover{ border-color:var(--accent); color:var(--accent); }
     .stage{ position:absolute; inset:54px 0 66px; display:flex; align-items:center; justify-content:center; }
+    #bookwrap{ margin:auto; }
     #book{ touch-action:pan-y; }
     .page img{ width:100%; height:100%; display:block; }
     .nav{ position:fixed; bottom:0; left:0; right:0; height:66px; z-index:20;
@@ -47,7 +48,7 @@
   </div>
 
   <div class="loading" id="loading">Cargando catálogo…</div>
-  <div class="stage"><div id="book"></div></div>
+  <div class="stage"><div id="bookwrap"><div id="book"></div></div></div>
 
   <div class="nav">
     <button id="prev" aria-label="Página anterior">&lsaquo;</button>
@@ -63,35 +64,55 @@
 
     var PF = (window.St && window.St.PageFlip) ? window.St.PageFlip : window.PageFlip;
     var el = document.getElementById('book');
-    // Dimensiones segun la pantalla: fuerza UNA pagina a la vez (modo portrait)
-    // sin inflar la pagina, y la ajusta al alto disponible.
-    var vw = window.innerWidth, vh = window.innerHeight;
-    var maxH = Math.max(240, vh - 140);
-    var maxW = Math.round(maxH * 1.294);
-    var mw = (vw > 700) ? Math.min(Math.round(vw * 0.55), maxW) : 315;
-    var pageFlip = new PF(el, {
-      width: 1100, height: 850,            // proporción horizontal de las páginas (1.294)
-      size: 'stretch',
-      minWidth: mw, maxWidth: maxW,
-      minHeight: 240, maxHeight: maxH,
-      maxShadowOpacity: 0.5,
-      showCover: true,
-      usePortrait: true,
-      mobileScrollSupport: false,
-      useMouseEvents: true
-    });
-    pageFlip.loadFromImages(pages);
-
+    var wrap = document.getElementById('bookwrap');
+    var loading = document.getElementById('loading');
     var counter = document.getElementById('counter');
-    function upd(){ counter.textContent = (pageFlip.getCurrentPageIndex() + 1) + ' / ' + N; }
-    pageFlip.on('init', function(){ document.getElementById('loading').style.display = 'none'; upd(); });
-    pageFlip.on('flip', function(){ upd(); document.getElementById('hint').style.opacity = '0'; });
+    var hint = document.getElementById('hint');
+    var pageFlip = null;
+    var RATIO = 1.294;   // proporción horizontal de las páginas
 
-    document.getElementById('next').onclick = function(){ pageFlip.flipNext(); };
-    document.getElementById('prev').onclick = function(){ pageFlip.flipPrev(); };
+    function upd(){ if (pageFlip) counter.textContent = (pageFlip.getCurrentPageIndex() + 1) + ' / ' + N; }
+
+    // El truco para UNA sola página siempre: el contenedor del libro se
+    // dimensiona exactamente al tamaño de UNA página (ajustada al alto de
+    // la pantalla), así nunca caben dos — en cualquier forma de pantalla.
+    function buildBook(startPage){
+      var vw = window.innerWidth, vh = window.innerHeight;
+      var availH = Math.max(220, vh - 140);
+      var pageW = Math.min(Math.round(availH * RATIO), vw - 8);
+      var pageH = Math.round(pageW / RATIO);
+      wrap.style.width = pageW + 'px';
+      wrap.style.height = pageH + 'px';
+      if (pageFlip) { try { pageFlip.destroy(); } catch (e) {} el.innerHTML = ''; }
+      pageFlip = new PF(el, {
+        width: pageW, height: pageH, size: 'stretch',
+        minWidth: pageW, maxWidth: pageW,
+        minHeight: pageH, maxHeight: pageH,
+        maxShadowOpacity: 0.5, showCover: true, usePortrait: true,
+        mobileScrollSupport: false, useMouseEvents: true
+      });
+      pageFlip.loadFromImages(pages);
+      pageFlip.on('init', function(){
+        loading.style.display = 'none';
+        if (startPage) { try { pageFlip.turnToPage(startPage); } catch (e) {} }
+        upd();
+      });
+      pageFlip.on('flip', function(){ upd(); hint.style.opacity = '0'; });
+    }
+
+    buildBook(0);
+
+    document.getElementById('next').onclick = function(){ if (pageFlip) pageFlip.flipNext(); };
+    document.getElementById('prev').onclick = function(){ if (pageFlip) pageFlip.flipPrev(); };
     document.addEventListener('keydown', function(e){
+      if (!pageFlip) return;
       if (e.key === 'ArrowRight') pageFlip.flipNext();
       if (e.key === 'ArrowLeft')  pageFlip.flipPrev();
+    });
+    var rt;
+    window.addEventListener('resize', function(){
+      clearTimeout(rt);
+      rt = setTimeout(function(){ buildBook(pageFlip ? pageFlip.getCurrentPageIndex() : 0); }, 260);
     });
   </script>
 </body>
