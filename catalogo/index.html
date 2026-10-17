@@ -107,11 +107,11 @@
         startIdx = startReal;
       } else {
         mode = 'book';
-        wrap.style.width = '100%';
-        wrap.style.height = '100%';
+        wrap.style.width = vw + 'px';
+        wrap.style.height = Math.max(260, vh - 120) + 'px';
         opts = { width: 1100, height: 850, size: 'stretch',
-          minWidth: 320, maxWidth: 3000, minHeight: 300, maxHeight: 2320,
-          showCover: false, usePortrait: true, maxShadowOpacity: 0.6, useMouseEvents: true };
+          minWidth: 300, maxWidth: 3000, minHeight: 240, maxHeight: 2320,
+          showCover: false, usePortrait: false, maxShadowOpacity: 0.6, useMouseEvents: true };
         loadPages = [DARK].concat(realPages).concat([DARK]);
         startIdx = startReal + 1;
       }
