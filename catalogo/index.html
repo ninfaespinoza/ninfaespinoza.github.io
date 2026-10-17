@@ -64,12 +64,14 @@
     var PF = (window.St && window.St.PageFlip) ? window.St.PageFlip : window.PageFlip;
     var el = document.getElementById('book');
     var pageFlip = new PF(el, {
-      width: 1000, height: 773,            // proporción horizontal de las páginas
+      width: 1100, height: 850,            // proporción horizontal de las páginas (1.294)
       size: 'stretch',
-      minWidth: 300, maxWidth: 2600,
-      minHeight: 232, maxHeight: 1700,
+      // minWidth alto fuerza el modo de UNA página a la vez en pantallas normales
+      minWidth: 1200, maxWidth: 1700,
+      minHeight: 300, maxHeight: 1314,
       maxShadowOpacity: 0.5,
       showCover: true,
+      usePortrait: true,
       mobileScrollSupport: false,
       useMouseEvents: true
     });
