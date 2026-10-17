@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+  Catálogo digital (flipbook) de Intercambios cotidianos.
+  Las páginas están en pages/ como imágenes; se pasan con el efecto
+  de voltear hoja usando la librería gratuita StPageFlip.
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Intercambios cotidianos — Ninfa Espinoza</title>
+  <meta name="description" content="Catálogo digital de la exposición individual Intercambios cotidianos de Ninfa Espinoza — Centro Cultural Sampedrano, San Pedro Sula, 2026.">
+  <style>
+    :root{ --bg:#15161a; --ink:#f0eee9; --soft:#97989d; --accent:#c6b79a; --line:#34363d; }
+    *{ box-sizing:border-box; }
+    html,body{ margin:0; height:100%; background:var(--bg); color:var(--ink);
+      font-family:"Segoe UI",system-ui,sans-serif; -webkit-font-smoothing:antialiased;
+      overflow:hidden; overscroll-behavior:none; }
+    .topbar{ position:fixed; top:0; left:0; right:0; height:54px; z-index:20;
+      display:flex; align-items:center; justify-content:space-between; padding:0 18px; }
+    .brand{ font-size:.78rem; letter-spacing:.13em; text-transform:uppercase; color:var(--soft); }
+    .brand b{ color:var(--ink); font-weight:600; }
+    .dl{ font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink);
+      text-decoration:none; border:1px solid var(--line); padding:.5rem .85rem; border-radius:3px;
+      transition:border-color .15s,color .15s; white-space:nowrap; }
+    .dl:hover{ border-color:var(--accent); color:var(--accent); }
+    .stage{ position:absolute; inset:54px 0 66px; display:flex; align-items:center; justify-content:center; }
+    #book{ touch-action:pan-y; }
+    .page img{ width:100%; height:100%; display:block; }
+    .nav{ position:fixed; bottom:0; left:0; right:0; height:66px; z-index:20;
+      display:flex; align-items:center; justify-content:center; gap:1.3rem; }
+    .nav button{ background:none; border:1px solid var(--line); color:var(--ink);
+      width:48px; height:48px; border-radius:50%; cursor:pointer; font-size:1.3rem; line-height:1;
+      display:flex; align-items:center; justify-content:center; transition:all .15s; padding-bottom:3px; }
+    .nav button:hover{ border-color:var(--accent); color:var(--accent); }
+    .counter{ font-size:.8rem; color:var(--soft); min-width:86px; text-align:center; font-variant-numeric:tabular-nums; }
+    .hint{ position:fixed; bottom:72px; left:0; right:0; text-align:center; font-size:.68rem;
+      color:var(--soft); pointer-events:none; transition:opacity .4s; }
+    .loading{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      color:var(--soft); font-size:.9rem; letter-spacing:.05em; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><b>Intercambios cotidianos</b> &nbsp;·&nbsp; Ninfa Espinoza</div>
+    <a class="dl" href="intercambios-cotidianos.pdf" download>Descargar PDF</a>
+  </div>
+
+  <div class="loading" id="loading">Cargando catálogo…</div>
+  <div class="stage"><div id="book"></div></div>
+
+  <div class="nav">
+    <button id="prev" aria-label="Página anterior">&lsaquo;</button>
+    <span class="counter" id="counter">— / —</span>
+    <button id="next" aria-label="Página siguiente">&rsaquo;</button>
+  </div>
+  <div class="hint" id="hint">Usa las flechas o desliza para pasar las páginas</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+  <script>
+    var N = 30, pages = [];
+    for (var i = 1; i <= N; i++) { pages.push('pages/page-' + String(i).padStart(2,'0') + '.jpg'); }
+
+    var PF = (window.St && window.St.PageFlip) ? window.St.PageFlip : window.PageFlip;
+    var el = document.getElementById('book');
+    var pageFlip = new PF(el, {
+      width: 1000, height: 773,            // proporción horizontal de las páginas
+      size: 'stretch',
+      minWidth: 300, maxWidth: 2600,
+      minHeight: 232, maxHeight: 1700,
+      maxShadowOpacity: 0.5,
+      showCover: true,
+      mobileScrollSupport: false,
+      useMouseEvents: true
+    });
+    pageFlip.loadFromImages(pages);
+
+    var counter = document.getElementById('counter');
+    function upd(){ counter.textContent = (pageFlip.getCurrentPageIndex() + 1) + ' / ' + N; }
+    pageFlip.on('init', function(){ document.getElementById('loading').style.display = 'none'; upd(); });
+    pageFlip.on('flip', function(){ upd(); document.getElementById('hint').style.opacity = '0'; });
+
+    document.getElementById('next').onclick = function(){ pageFlip.flipNext(); };
+    document.getElementById('prev').onclick = function(){ pageFlip.flipPrev(); };
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') pageFlip.flipNext();
+      if (e.key === 'ArrowLeft')  pageFlip.flipPrev();
+    });
+  </script>
+</body>
+</html>
