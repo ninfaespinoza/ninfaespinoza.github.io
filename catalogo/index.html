@@ -59,8 +59,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <script>
-    var N = 30, pages = [];
-    for (var i = 1; i <= N; i++) { pages.push('pages/page-' + String(i).padStart(2,'0') + '.jpg'); }
+    var N = 30;
+    var realPages = [];
+    for (var i = 1; i <= N; i++) { realPages.push('pages/page-' + String(i).padStart(2,'0') + '.jpg'); }
+    var DARK = 'pages/cover-back.jpg';   // hoja oscura que acompaña portada/contraportada
+    var RATIO = 1.294;                   // proporción horizontal de las páginas
 
     var PF = (window.St && window.St.PageFlip) ? window.St.PageFlip : window.PageFlip;
     var el = document.getElementById('book');
@@ -69,35 +72,57 @@
     var counter = document.getElementById('counter');
     var hint = document.getElementById('hint');
     var pageFlip = null;
-    var RATIO = 1.294;   // proporción horizontal de las páginas
+    var mode = 'single';
 
-    function upd(){ if (pageFlip) counter.textContent = (pageFlip.getCurrentPageIndex() + 1) + ' / ' + N; }
+    function currentReal(){
+      if (!pageFlip) return 0;
+      var idx = pageFlip.getCurrentPageIndex();
+      return (mode === 'single') ? idx : Math.max(0, idx - 1);
+    }
+    function updCounter(){
+      if (!pageFlip) return;
+      var idx = pageFlip.getCurrentPageIndex();
+      var real = (mode === 'single') ? (idx + 1) : Math.min(Math.max(idx, 1), N);
+      counter.textContent = real + ' / ' + N;
+    }
 
-    // El truco para UNA sola página siempre: el contenedor del libro se
-    // dimensiona exactamente al tamaño de UNA página (ajustada al alto de
-    // la pantalla), así nunca caben dos — en cualquier forma de pantalla.
-    function buildBook(startPage){
+    // Celular (angosto): UNA hoja a la vez, grande.
+    // Compu (ancho): libro de DOS hojas, con hoja oscura junto a portada/contraportada.
+    function buildBook(startReal){
       var vw = window.innerWidth, vh = window.innerHeight;
-      var availH = Math.max(220, vh - 140);
-      var pageW = Math.min(Math.round(availH * RATIO), vw - 8);
-      var pageH = Math.round(pageW / RATIO);
-      wrap.style.width = pageW + 'px';
-      wrap.style.height = pageH + 'px';
+      var narrow = vw < 760;
       if (pageFlip) { try { pageFlip.destroy(); } catch (e) {} el.innerHTML = ''; }
-      pageFlip = new PF(el, {
-        width: pageW, height: pageH, size: 'stretch',
-        minWidth: pageW, maxWidth: pageW,
-        minHeight: pageH, maxHeight: pageH,
-        maxShadowOpacity: 0.5, showCover: true, usePortrait: true,
-        mobileScrollSupport: false, useMouseEvents: true
-      });
-      pageFlip.loadFromImages(pages);
+      var opts, loadPages, startIdx;
+      if (narrow) {
+        mode = 'single';
+        var availH = Math.max(220, vh - 140);
+        var pageW = Math.min(Math.round(availH * RATIO), vw - 8);
+        var pageH = Math.round(pageW / RATIO);
+        wrap.style.width = pageW + 'px';
+        wrap.style.height = pageH + 'px';
+        opts = { width: pageW, height: pageH, size: 'stretch',
+          minWidth: pageW, maxWidth: pageW, minHeight: pageH, maxHeight: pageH,
+          showCover: true, usePortrait: true, maxShadowOpacity: 0.5, useMouseEvents: true };
+        loadPages = realPages;
+        startIdx = startReal;
+      } else {
+        mode = 'book';
+        wrap.style.width = '100%';
+        wrap.style.height = '100%';
+        opts = { width: 1100, height: 850, size: 'stretch',
+          minWidth: 320, maxWidth: 3000, minHeight: 300, maxHeight: 2320,
+          showCover: false, usePortrait: true, maxShadowOpacity: 0.6, useMouseEvents: true };
+        loadPages = [DARK].concat(realPages).concat([DARK]);
+        startIdx = startReal + 1;
+      }
+      pageFlip = new PF(el, opts);
+      pageFlip.loadFromImages(loadPages);
       pageFlip.on('init', function(){
         loading.style.display = 'none';
-        if (startPage) { try { pageFlip.turnToPage(startPage); } catch (e) {} }
-        upd();
+        if (startIdx) { try { pageFlip.turnToPage(startIdx); } catch (e) {} }
+        updCounter();
       });
-      pageFlip.on('flip', function(){ upd(); hint.style.opacity = '0'; });
+      pageFlip.on('flip', function(){ updCounter(); hint.style.opacity = '0'; });
     }
 
     buildBook(0);
@@ -112,7 +137,7 @@
     var rt;
     window.addEventListener('resize', function(){
       clearTimeout(rt);
-      rt = setTimeout(function(){ buildBook(pageFlip ? pageFlip.getCurrentPageIndex() : 0); }, 260);
+      rt = setTimeout(function(){ buildBook(currentReal()); }, 260);
     });
   </script>
 </body>
