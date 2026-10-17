@@ -63,12 +63,17 @@
 
     var PF = (window.St && window.St.PageFlip) ? window.St.PageFlip : window.PageFlip;
     var el = document.getElementById('book');
+    // Dimensiones segun la pantalla: fuerza UNA pagina a la vez (modo portrait)
+    // sin inflar la pagina, y la ajusta al alto disponible.
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var maxH = Math.max(240, vh - 140);
+    var maxW = Math.round(maxH * 1.294);
+    var mw = (vw > 700) ? Math.min(Math.round(vw * 0.55), maxW) : 315;
     var pageFlip = new PF(el, {
       width: 1100, height: 850,            // proporción horizontal de las páginas (1.294)
       size: 'stretch',
-      // minWidth alto fuerza el modo de UNA página a la vez en pantallas normales
-      minWidth: 1200, maxWidth: 1700,
-      minHeight: 300, maxHeight: 1314,
+      minWidth: mw, maxWidth: maxW,
+      minHeight: 240, maxHeight: maxH,
       maxShadowOpacity: 0.5,
       showCover: true,
       usePortrait: true,
