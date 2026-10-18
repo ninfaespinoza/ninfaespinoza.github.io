@@ -143,6 +143,24 @@ a { color: var(--accent); }
   color: var(--bg);
 }
 
+/* dos botones juntos en la portada */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* botón relleno (resaltado) para el catálogo */
+.button--filled {
+  background: var(--text);
+  color: var(--bg);
+}
+.button--filled:hover {
+  background: transparent;
+  color: var(--text);
+}
+
 /* ---------- 5. SECCIONES ---------- */
 .section {
   max-width: var(--max-width);
