@@ -90,13 +90,15 @@
     // Compu (ancho): libro de DOS hojas, con hoja oscura junto a portada/contraportada.
     function buildBook(startReal){
       var vw = window.innerWidth, vh = window.innerHeight;
-      var narrow = vw < 760;
-      if (pageFlip) { try { pageFlip.destroy(); } catch (e) {} el.innerHTML = ''; }
+      var narrow = true;   // una sola hoja en todos los tamaños (compu y celular)
+      if (pageFlip) { try { pageFlip.destroy(); } catch (e) {} pageFlip = null; }
+      wrap.innerHTML = '<div id="book"></div>';   // elemento siempre limpio y conectado
+      el = document.getElementById('book');
       var opts, loadPages, startIdx;
       if (narrow) {
         mode = 'single';
-        var availH = Math.max(220, vh - 140);
-        var pageW = Math.min(Math.round(availH * RATIO), vw - 8);
+        var availH = Math.max(220, vh - 150);
+        var pageW = Math.min(Math.round(availH * RATIO), vw - 16);
         var pageH = Math.round(pageW / RATIO);
         wrap.style.width = pageW + 'px';
         wrap.style.height = pageH + 'px';
