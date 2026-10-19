@@ -24,6 +24,11 @@
       text-decoration:none; border:1px solid var(--line); padding:.5rem .85rem; border-radius:3px;
       transition:border-color .15s,color .15s; white-space:nowrap; }
     .dl:hover{ border-color:var(--accent); color:var(--accent); }
+    .actions{ display:flex; align-items:center; gap:.7rem; }
+    .langsw{ display:flex; border:1px solid var(--line); border-radius:3px; overflow:hidden; }
+    .langsw button{ background:none; border:0; color:var(--soft); font-size:.68rem; letter-spacing:.08em;
+      padding:.5rem .62rem; cursor:pointer; font-family:inherit; transition:background .15s,color .15s; }
+    .langsw button.active{ background:var(--accent); color:#15161a; }
     .stage{ position:absolute; inset:54px 0 66px; display:flex; align-items:center; justify-content:center; }
     #bookwrap{ margin:auto; }
     #book{ touch-action:pan-y; }
@@ -44,7 +49,13 @@
 <body>
   <div class="topbar">
     <div class="brand"><b>Intercambios cotidianos</b> &nbsp;·&nbsp; Ninfa Espinoza</div>
-    <a class="dl" href="intercambios-cotidianos.pdf" download>Descargar PDF</a>
+    <div class="actions">
+      <div class="langsw">
+        <button id="btn-es" data-lang="es">ES</button>
+        <button id="btn-en" data-lang="en">EN</button>
+      </div>
+      <a class="dl" id="dl" href="intercambios-cotidianos.pdf" download>Descargar PDF</a>
+    </div>
   </div>
 
   <div class="loading" id="loading">Cargando catálogo…</div>
@@ -60,9 +71,19 @@
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <script>
     var N = 30;
+    var LANG = 'es';
+    var FOLDER = { es: 'pages', en: 'pages-en' };          // carpetas de imágenes por idioma
+    var PDF = { es: 'intercambios-cotidianos.pdf', en: 'intercambios-cotidianos-en.pdf' };
+    var UI = {
+      es: { dl: 'Descargar PDF', hint: 'Usa las flechas o desliza para pasar las páginas' },
+      en: { dl: 'Download PDF',  hint: 'Use the arrows or swipe to turn the pages' }
+    };
     var realPages = [];
-    for (var i = 1; i <= N; i++) { realPages.push('pages/page-' + String(i).padStart(2,'0') + '.jpg'); }
-    var DARK = 'pages/cover-back.jpg';   // hoja oscura que acompaña portada/contraportada
+    function buildPages(){
+      realPages = [];
+      for (var i = 1; i <= N; i++) { realPages.push(FOLDER[LANG] + '/page-' + String(i).padStart(2,'0') + '.jpg'); }
+    }
+    var DARK = 'pages/cover-back.jpg';
     var RATIO = 1.294;                   // proporción horizontal de las páginas
 
     var PF = (window.St && window.St.PageFlip) ? window.St.PageFlip : window.PageFlip;
@@ -133,6 +154,32 @@
       pageFlip.on('flip', function(){ updCounter(); hint.style.opacity = '0'; });
     }
 
+    // ----- idioma (ES / EN) -----
+    var saved = null;
+    try { saved = localStorage.getItem('catlang'); } catch (e) {}
+    LANG = saved || (((navigator.language || '').toLowerCase().indexOf('en') === 0) ? 'en' : 'es');
+    function applyLang(){
+      var dl = document.getElementById('dl');
+      dl.textContent = UI[LANG].dl;
+      dl.setAttribute('href', PDF[LANG]);
+      hint.textContent = UI[LANG].hint;
+      document.getElementById('btn-es').classList.toggle('active', LANG === 'es');
+      document.getElementById('btn-en').classList.toggle('active', LANG === 'en');
+      document.documentElement.lang = LANG;
+      buildPages();
+    }
+    function setLang(l){
+      if (l === LANG) return;
+      var keep = currentReal();
+      LANG = l;
+      try { localStorage.setItem('catlang', l); } catch (e) {}
+      applyLang();
+      buildBook(keep);
+    }
+    document.getElementById('btn-es').onclick = function(){ setLang('es'); };
+    document.getElementById('btn-en').onclick = function(){ setLang('en'); };
+
+    applyLang();
     buildBook(0);
 
     document.getElementById('next').onclick = function(){ if (pageFlip) pageFlip.flipNext(); };
