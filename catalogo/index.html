@@ -117,8 +117,14 @@
         loadPages = [DARK].concat(realPages).concat([DARK]);
         startIdx = startReal + 1;
       }
+      // Páginas como <img> reales (modo HTML): nítidas en pantallas retina del celular.
+      var html = '';
+      for (var k = 0; k < loadPages.length; k++) {
+        html += '<div class="page"><img src="' + loadPages[k] + '" alt=""></div>';
+      }
+      el.innerHTML = html;
       pageFlip = new PF(el, opts);
-      pageFlip.loadFromImages(loadPages);
+      pageFlip.loadFromHTML(el.querySelectorAll('.page'));
       pageFlip.on('init', function(){
         loading.style.display = 'none';
         if (startIdx) { try { pageFlip.turnToPage(startIdx); } catch (e) {} }
