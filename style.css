@@ -100,7 +100,8 @@ a { color: var(--accent); }
   flex-wrap: wrap;
 }
 .langsw {
-  display: flex;
+  display: inline-flex;     /* va dentro del menú, a la par de Contact */
+  align-self: center;
   border: 1px solid var(--line);
   border-radius: 3px;
   overflow: hidden;
