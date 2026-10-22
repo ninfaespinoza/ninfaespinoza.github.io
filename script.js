@@ -30,6 +30,14 @@ const ARTIST_EMAIL   = 'ninfaespinozam@gmail.com';
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xoejvqoj';
 let currentTitle = '';
 
+// Textos del visor y del formulario según el idioma activo (definido en index.html).
+function S() {
+  var d = window.I18N && window.I18N.strings[window.I18N.lang];
+  return d || { sold: 'This work is sold.', sending: 'Sending…', sent: 'Thank you — your message has been sent.',
+    errPre: 'Something went wrong. Please email ', errPost: '.', subject: 'Inquire: ',
+    msgPre: 'I am interested in «', msgPost: '». Could you tell me more about its availability and price?' };
+}
+
 // Deja la consulta lista para una obra nueva: enlace visible, formulario
 // oculto, campos reiniciados y el titulo cargado en el asunto y el mensaje.
 function resetInquiry() {
@@ -38,11 +46,9 @@ function resetInquiry() {
   inquireLink.hidden = false;
   inquiryStatus.textContent = '';
   inquiryStatus.className = 'inquiry-status';
-  inquirySubject.value = 'Inquire: ' + currentTitle;
+  inquirySubject.value = S().subject + currentTitle;
   inquiryArtwork.value = currentTitle;
-  inquiryMessage.value =
-    'I am interested in "' + currentTitle + '". ' +
-    'Could you tell me more about its availability and price?';
+  inquiryMessage.value = S().msgPre + currentTitle + S().msgPost;
 }
 
 // Abrir: recorremos cada obra y le decimos que hacer al clic
@@ -72,7 +78,7 @@ document.querySelectorAll('.work').forEach(function (work) {
       inquireLink.hidden = true;
       inquiryForm.hidden = true;
       inquiryStatus.className = 'inquiry-status';
-      inquiryStatus.textContent = isSold ? 'This work is sold.' : '';
+      inquiryStatus.textContent = isSold ? S().sold : '';
     }
 
     lightbox.hidden = false;
@@ -94,7 +100,7 @@ inquiryForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const btn = inquiryForm.querySelector('button[type="submit"]');
   inquiryStatus.className = 'inquiry-status';
-  inquiryStatus.textContent = 'Sending…';
+  inquiryStatus.textContent = S().sending;
   if (btn) { btn.disabled = true; }
 
   fetch(FORMSPREE_ENDPOINT, {
@@ -105,14 +111,14 @@ inquiryForm.addEventListener('submit', function (event) {
     if (response.ok) {
       inquiryForm.hidden = true;
       inquiryStatus.className = 'inquiry-status ok';
-      inquiryStatus.textContent = 'Thank you — your message has been sent.';
+      inquiryStatus.textContent = S().sent;
     } else {
       inquiryStatus.className = 'inquiry-status err';
-      inquiryStatus.textContent = 'Something went wrong. Please email ' + ARTIST_EMAIL + '.';
+      inquiryStatus.textContent = S().errPre + ARTIST_EMAIL + S().errPost;
     }
   }).catch(function () {
     inquiryStatus.className = 'inquiry-status err';
-    inquiryStatus.textContent = 'Something went wrong. Please email ' + ARTIST_EMAIL + '.';
+    inquiryStatus.textContent = S().errPre + ARTIST_EMAIL + S().errPost;
   }).then(function () {
     if (btn) { btn.disabled = false; }
   });

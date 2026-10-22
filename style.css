@@ -92,6 +92,32 @@ a { color: var(--accent); }
   border-bottom-color: var(--accent);
 }
 
+/* lado derecho del encabezado: menú + selector de idioma */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+.langsw {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.langsw button {
+  background: none;
+  border: 0;
+  color: var(--text-soft);
+  font-family: system-ui, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.langsw button.active { background: var(--accent); color: var(--bg); }
+
 /* ---------- 4. PORTADA ---------- */
 .hero {
   max-width: var(--max-width);

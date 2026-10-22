@@ -3,17 +3,11 @@
   ============================================================
   SITIO WEB DE NINFA ESPINOZA
   ============================================================
-  Este archivo es la ESTRUCTURA de la pagina: el contenido y
-  como esta organizado. Los colores y el diseno estan en
-  style.css, y la interactividad en script.js.
-
-  La obra esta dividida en dos secciones:
-    - Painting : pinturas agrupadas por año (de nuevo a viejo)
-    - Installation : la instalacion Estacion y camino
-
-  Para agregar una obra nueva, copia un bloque <figure class="work">
-  completo dentro del grupo del año que corresponda y cambia la
-  imagen y los textos.
+  Bilingüe (inglés por defecto, con botón ES/EN arriba a la derecha).
+  El contenido en inglés está escrito en el HTML; la versión en español
+  vive en los atributos data-es (y data-es-ph para los placeholders).
+  Un script al final hace el cambio. Para traducir un elemento nuevo,
+  agrégale data-es="texto en español".
   ============================================================
 -->
 <html lang="en">
@@ -33,42 +27,48 @@
   <!-- ========== MENU DE NAVEGACION ========== -->
   <header class="site-header">
     <a href="#top" class="logo">Ninfa Espinoza</a>
-    <nav>
-      <a href="#painting">Painting</a>
-      <a href="#installation">Installation</a>
-      <a href="#about">About</a>
-      <a href="#cv">CV</a>
-      <a href="#publications">Publications</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="header-right">
+      <nav>
+        <a href="#painting" data-es='Pintura'>Painting</a>
+        <a href="#installation" data-es='Instalación'>Installation</a>
+        <a href="#about" data-es='Sobre mí'>About</a>
+        <a href="#cv" data-es='CV'>CV</a>
+        <a href="#publications" data-es='Publicaciones'>Publications</a>
+        <a href="#contact" data-es='Contacto'>Contact</a>
+      </nav>
+      <div class="langsw" aria-label="Idioma / Language">
+        <button id="btn-es" type="button" data-lang="es">ES</button>
+        <button id="btn-en" type="button" data-lang="en">EN</button>
+      </div>
+    </div>
   </header>
 
   <!-- ========== PORTADA ========== -->
   <section id="top" class="hero">
-    <p class="hero-eyebrow">Contemporary Visual Artist</p>
+    <p class="hero-eyebrow" data-es='Artista visual contemporánea'>Contemporary Visual Artist</p>
     <h1>Ninfa Espinoza</h1>
-    <p class="hero-sub">Painting the quiet narratives of everyday life in Honduras.</p>
+    <p class="hero-sub" data-es='Pintando las narrativas silenciosas de la vida cotidiana en Honduras.'>Painting the quiet narratives of everyday life in Honduras.</p>
     <div class="hero-actions">
-      <a href="#painting" class="button">View works</a>
-      <a href="catalogo/" class="button button--filled" target="_blank" rel="noopener">View catalogue</a>
+      <a href="#painting" class="button" data-es='Ver obras'>View works</a>
+      <a href="catalogo/" class="button button--filled" target="_blank" rel="noopener" data-es='Ver catálogo'>View catalogue</a>
     </div>
   </section>
 
   <!-- ========== PINTURA (por años) ========== -->
   <section id="painting" class="section">
-    <h2 class="section-title">Painting</h2>
+    <h2 class="section-title" data-es='Pintura'>Painting</h2>
 
     <!-- ----- 2026 ----- -->
     <div class="year-group">
       <h3 class="year-heading">2026</h3>
-      <p class="section-intro">Works from <em>Intercambios cotidianos</em> — the artist's first solo exhibition, Centro Cultural Sampedrano, San Pedro Sula, 2026.</p>
+      <p class="section-intro" data-es='Obras de <em>Intercambios cotidianos</em> — primera exposición individual de la artista, Centro Cultural Sampedrano, San Pedro Sula, 2026.'>Works from <em>Intercambios cotidianos</em> — the artist's first solo exhibition, Centro Cultural Sampedrano, San Pedro Sula, 2026.</p>
       <div class="gallery">
 
         <figure class="work">
           <img src="images/works/regreso-a-casa.jpg" alt="Regreso a casa — night street scene, a cotton-candy vendor with a bicycle under a highway overpass beside an ALTO stop sign" loading="lazy">
           <figcaption>
             <h3>Regreso a casa</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 90 × 60 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 90 × 60 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 90 × 60 cm</p>
           </figcaption>
         </figure>
 
@@ -76,8 +76,8 @@
           <img src="images/works/amor-para-llevar.jpg" alt="Amor Para Llevar — mixed media painting" loading="lazy">
           <figcaption>
             <h3>Amor Para Llevar</h3>
-            <p class="work-meta">2026 · Mixed media · 60 × 60 cm</p>
-            <p class="work-note">Selected for <em>Esencia de Mujer</em>, Centro Cultural Sampedrano, 2026</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta · 60 × 60 cm'>2026 · Mixed media · 60 × 60 cm</p>
+            <p class="work-note" data-es='Seleccionada para <em>Esencia de Mujer</em>, Centro Cultural Sampedrano, 2026'>Selected for <em>Esencia de Mujer</em>, Centro Cultural Sampedrano, 2026</p>
           </figcaption>
         </figure>
 
@@ -85,7 +85,7 @@
           <img src="images/works/entre-carros.jpg" alt="Entre carros — a cotton-candy vendor glimpsed between parked cars, teal and newspaper-collage background" loading="lazy">
           <figcaption>
             <h3>Entre carros</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 60 × 60 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 60 × 60 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 60 × 60 cm</p>
           </figcaption>
         </figure>
 
@@ -93,7 +93,7 @@
           <img src="images/works/fuera-de-foco.jpg" alt="Fuera de foco — tall narrow painting, a blurred figure in green beside pink cotton candy over newspaper collage" loading="lazy">
           <figcaption>
             <h3>Fuera de foco</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 50 × 20 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 50 × 20 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 50 × 20 cm</p>
           </figcaption>
         </figure>
 
@@ -101,7 +101,7 @@
           <img src="images/works/a-traves-del-sol-que-brilla.jpg" alt="A través del sol que brilla — a woman carries a basin on her head crossing a sunlit yellow street" loading="lazy">
           <figcaption>
             <h3>A través del sol que brilla</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 100 × 80 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 100 × 80 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 100 × 80 cm</p>
           </figcaption>
         </figure>
 
@@ -109,7 +109,7 @@
           <img src="images/works/audaz-entrega.jpg" alt="Audaz entrega — two figures balanced acrobatically, one standing on another's shoulders juggling, purple street scene" loading="lazy">
           <figcaption>
             <h3>Audaz entrega</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 120 × 80 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 120 × 80 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 120 × 80 cm</p>
           </figcaption>
         </figure>
 
@@ -117,7 +117,7 @@
           <img src="images/works/de-la-tradicion-a-la-venta.jpg" alt="De la tradición a la venta — a vendor behind stacks of traditional breads and sweets, lilac background" loading="lazy">
           <figcaption>
             <h3>De la tradición a la venta</h3>
-            <p class="work-meta">2026 · Acrylic on canvas · 60 × 90 cm</p>
+            <p class="work-meta" data-es='2026 · Acrílico sobre lienzo · 60 × 90 cm'>2026 · Acrylic on canvas · 60 × 90 cm</p>
           </figcaption>
         </figure>
 
@@ -125,7 +125,7 @@
           <img src="images/works/el-puesto-por-las-vias.jpg" alt="El puesto por las vías — a colorful hot-dog street cart with umbrellas and a railroad-crossing sign" loading="lazy">
           <figcaption>
             <h3>El puesto por las vías</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 100 × 70 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 100 × 70 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 100 × 70 cm</p>
           </figcaption>
         </figure>
 
@@ -133,7 +133,7 @@
           <img src="images/works/familia-en-el-negocio.jpg" alt="Familia en el negocio — a bread vendor surrounded by hanging bags of bread, lilac background" loading="lazy">
           <figcaption>
             <h3>Familia en el negocio</h3>
-            <p class="work-meta">2026 · Acrylic on canvas · 70 × 100 cm</p>
+            <p class="work-meta" data-es='2026 · Acrílico sobre lienzo · 70 × 100 cm'>2026 · Acrylic on canvas · 70 × 100 cm</p>
           </figcaption>
         </figure>
 
@@ -141,7 +141,7 @@
           <img src="images/works/produccion-y-memoria.jpg" alt="Producción y memoria — triptych of green, orange and blue panels holding rows of real cotton candy" loading="lazy">
           <figcaption>
             <h3>Producción y memoria</h3>
-            <p class="work-meta">2026 · Mixed media (miniature cotton candy series) on canvas · Triptych, 80 × 80 cm each</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (serie de algodones de azúcar miniatura) sobre lienzo · Tríptico, 80 × 80 cm c/u'>2026 · Mixed media (miniature cotton candy series) on canvas · Triptych, 80 × 80 cm each</p>
           </figcaption>
         </figure>
 
@@ -149,7 +149,7 @@
           <img src="images/works/sin-titulo-i.jpg" alt="Sin título I — small framed piece, pink cotton candy in a plastic bag over a newspaper and photo collage" loading="lazy">
           <figcaption>
             <h3>Sin título I</h3>
-            <p class="work-meta">2026 · Mixed media (paper collage and object) on paper, framed · 15 × 15 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (collage de papel y objeto) sobre papel, enmarcada · 15 × 15 cm'>2026 · Mixed media (paper collage and object) on paper, framed · 15 × 15 cm</p>
           </figcaption>
         </figure>
 
@@ -157,7 +157,7 @@
           <img src="images/works/bici-cargada.jpg" alt="Bici cargada — mixed media painting by Ninfa Espinoza" loading="lazy">
           <figcaption>
             <h3>Bici cargada</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 60 × 60 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 60 × 60 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 60 × 60 cm</p>
           </figcaption>
         </figure>
 
@@ -165,7 +165,7 @@
           <img src="images/works/en-la-pasada.jpg" alt="En la pasada — acrylic painting by Ninfa Espinoza" loading="lazy">
           <figcaption>
             <h3>En la pasada</h3>
-            <p class="work-meta">2026 · Acrylic on canvas · 60 × 90 cm</p>
+            <p class="work-meta" data-es='2026 · Acrílico sobre lienzo · 60 × 90 cm'>2026 · Acrylic on canvas · 60 × 90 cm</p>
           </figcaption>
         </figure>
 
@@ -173,7 +173,7 @@
           <img src="images/works/en-la-prisa-y-lo-temporal.jpg" alt="En la prisa y lo temporal — acrylic painting by Ninfa Espinoza" loading="lazy">
           <figcaption>
             <h3>En la prisa y lo temporal</h3>
-            <p class="work-meta">2026 · Acrylic on canvas · 70 × 100 cm</p>
+            <p class="work-meta" data-es='2026 · Acrílico sobre lienzo · 70 × 100 cm'>2026 · Acrylic on canvas · 70 × 100 cm</p>
           </figcaption>
         </figure>
 
@@ -181,7 +181,7 @@
           <img src="images/works/silencio-a-alta-noche.jpg" alt="Silencio a alta noche — mixed media painting by Ninfa Espinoza" loading="lazy">
           <figcaption>
             <h3>Silencio a alta noche</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 80 × 80 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 80 × 80 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 80 × 80 cm</p>
           </figcaption>
         </figure>
 
@@ -189,7 +189,7 @@
           <img src="images/works/sin-titulo-ii.jpg" alt="Sin título II — diptych, two small canvases with pink cotton candy over blue newspaper" loading="lazy">
           <figcaption>
             <h3>Sin título II</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic, paper collage and object) on canvas · Diptych, 15 × 10 cm each</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico, collage de papel y objeto) sobre lienzo · Díptico, 15 × 10 cm c/u'>2026 · Mixed media (acrylic, paper collage and object) on canvas · Diptych, 15 × 10 cm each</p>
           </figcaption>
         </figure>
 
@@ -197,7 +197,7 @@
           <img src="images/works/temporada.jpg" alt="Temporada — mixed media painting by Ninfa Espinoza" loading="lazy">
           <figcaption>
             <h3>Temporada</h3>
-            <p class="work-meta">2026 · Mixed media (acrylic and paper collage) on canvas · 80 × 80 cm</p>
+            <p class="work-meta" data-es='2026 · Técnica mixta (acrílico y collage de papel) sobre lienzo · 80 × 80 cm'>2026 · Mixed media (acrylic and paper collage) on canvas · 80 × 80 cm</p>
           </figcaption>
         </figure>
 
@@ -213,8 +213,8 @@
           <img src="images/works/tierno-desborde.jpg" alt="Tierno Desborde — mixed media painting of a face split between a painted grayscale scream and a photographic child's eye" loading="lazy">
           <figcaption>
             <h3>Tierno Desborde</h3>
-            <p class="work-meta">2025 · Mixed media · 70 × 70 cm</p>
-            <p class="work-note">Selected for <em>Te odio: el odio como estrategia de poder y control político y social</em>, Centro Cultural de España, Costa Rica, 2025</p>
+            <p class="work-meta" data-es='2025 · Técnica mixta · 70 × 70 cm'>2025 · Mixed media · 70 × 70 cm</p>
+            <p class="work-note" data-es='Seleccionada para <em>Te odio: el odio como estrategia de poder y control político y social</em>, Centro Cultural de España, Costa Rica, 2025'>Selected for <em>Te odio: el odio como estrategia de poder y control político y social</em>, Centro Cultural de España, Costa Rica, 2025</p>
           </figcaption>
         </figure>
 
@@ -222,8 +222,8 @@
           <img src="images/works/transitando-en-resiliencia.jpg" alt="Transitando en Resiliencia — mixed media painting of a coconut vendor under orange and purple umbrellas" loading="lazy">
           <figcaption>
             <h3>Transitando en Resiliencia</h3>
-            <p class="work-meta">2025 · Mixed media · 100 × 100 cm</p>
-            <p class="work-note">Selected for the XXXV National Art Salon, Centro Cultural Sampedrano, 2025</p>
+            <p class="work-meta" data-es='2025 · Técnica mixta · 100 × 100 cm'>2025 · Mixed media · 100 × 100 cm</p>
+            <p class="work-note" data-es='Seleccionada para el XXXV Salón Nacional de Arte, Centro Cultural Sampedrano, 2025'>Selected for the XXXV National Art Salon, Centro Cultural Sampedrano, 2025</p>
           </figcaption>
         </figure>
 
@@ -231,9 +231,9 @@
           <img src="images/works/lazos-de-ninez-al-atardecer.jpg" alt="Lazos de niñez al atardecer — mixed media painting" loading="lazy">
           <figcaption>
             <h3>Lazos de niñez al atardecer</h3>
-            <p class="work-sold">Sold</p>
-            <p class="work-meta">2025 · Mixed media · 80 × 80 cm</p>
-            <p class="work-note">Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
+            <p class="work-sold" data-es='Vendida'>Sold</p>
+            <p class="work-meta" data-es='2025 · Técnica mixta · 80 × 80 cm'>2025 · Mixed media · 80 × 80 cm</p>
+            <p class="work-note" data-es='Seleccionada para <em>El Arte y la Paz</em>, Torre Banpaís, 2025'>Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
           </figcaption>
         </figure>
 
@@ -241,8 +241,8 @@
           <img src="images/works/serena-compania-en-la-esperanza.jpg" alt="Serena compañía en la esperanza — mixed media painting" loading="lazy">
           <figcaption>
             <h3>Serena compañía en la esperanza</h3>
-            <p class="work-meta">2025 · Mixed media · 100 × 70 cm</p>
-            <p class="work-note">Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
+            <p class="work-meta" data-es='2025 · Técnica mixta · 100 × 70 cm'>2025 · Mixed media · 100 × 70 cm</p>
+            <p class="work-note" data-es='Seleccionada para <em>El Arte y la Paz</em>, Torre Banpaís, 2025'>Selected for <em>El Arte y la Paz</em>, Torre Banpaís, 2025</p>
           </figcaption>
         </figure>
 
@@ -258,7 +258,7 @@
           <img src="images/works/vendedoras-de-nances.jpg" alt="Vendedoras de Nances — mixed media painting of street vendors" loading="lazy">
           <figcaption>
             <h3>Vendedoras de Nances</h3>
-            <p class="work-meta">2024 · Mixed media · 90 × 60 cm</p>
+            <p class="work-meta" data-es='2024 · Técnica mixta · 90 × 60 cm'>2024 · Mixed media · 90 × 60 cm</p>
           </figcaption>
         </figure>
 
@@ -266,7 +266,7 @@
           <img src="images/works/yaxis.jpg" alt="Yaxis — mixed media painting" loading="lazy">
           <figcaption>
             <h3>Yaxis</h3>
-            <p class="work-meta">2024 · Mixed media · 60 × 60 cm</p>
+            <p class="work-meta" data-es='2024 · Técnica mixta · 60 × 60 cm'>2024 · Mixed media · 60 × 60 cm</p>
           </figcaption>
         </figure>
 
@@ -274,8 +274,8 @@
           <img src="images/works/guajacas.jpg" alt="Guajacas — mixed media painting" loading="lazy">
           <figcaption>
             <h3>Guajacas</h3>
-            <p class="work-meta">2024 · Mixed media · 100 × 100 cm</p>
-            <p class="work-note">XXXIV National Art Salon, Centro Cultural Sampedrano, 2024</p>
+            <p class="work-meta" data-es='2024 · Técnica mixta · 100 × 100 cm'>2024 · Mixed media · 100 × 100 cm</p>
+            <p class="work-note" data-es='XXXIV Salón Nacional de Arte, Centro Cultural Sampedrano, 2024'>XXXIV National Art Salon, Centro Cultural Sampedrano, 2024</p>
           </figcaption>
         </figure>
 
@@ -291,9 +291,9 @@
           <img src="images/works/helados-en-la-avenida.jpg" alt="Helados en la avenida — painting of an ice cream vendor pushing a cart past pigeons on a city street" loading="lazy">
           <figcaption>
             <h3>Helados en la avenida</h3>
-            <p class="work-sold">Sold</p>
-            <p class="work-meta">2023 · Mixed media · 70 × 50 cm</p>
-            <p class="work-note">Honorable Mention, New Artist — XXXIII National Art Salon, Centro Cultural Sampedrano, 2023</p>
+            <p class="work-sold" data-es='Vendida'>Sold</p>
+            <p class="work-meta" data-es='2023 · Técnica mixta · 70 × 50 cm'>2023 · Mixed media · 70 × 50 cm</p>
+            <p class="work-note" data-es='Mención honorífica, Artista Revelación — XXXIII Salón Nacional de Arte, Centro Cultural Sampedrano, 2023'>Honorable Mention, New Artist — XXXIII National Art Salon, Centro Cultural Sampedrano, 2023</p>
           </figcaption>
         </figure>
 
@@ -301,7 +301,7 @@
           <img src="images/works/vida-transitoria.jpg" alt="Vida transitoria — mixed media painting" loading="lazy">
           <figcaption>
             <h3>Vida transitoria</h3>
-            <p class="work-meta">2023 · Mixed media · 50 × 40 cm</p>
+            <p class="work-meta" data-es='2023 · Técnica mixta · 50 × 40 cm'>2023 · Mixed media · 50 × 40 cm</p>
           </figcaption>
         </figure>
 
@@ -317,7 +317,7 @@
           <img src="images/works/downtown-at-noon.jpg" alt="Downtown at noon — acrylic painting of a city street at midday" loading="lazy">
           <figcaption>
             <h3>Downtown at noon</h3>
-            <p class="work-meta">2020 · Acrylic on canvas · 50 × 70 cm</p>
+            <p class="work-meta" data-es='2020 · Acrílico sobre lienzo · 50 × 70 cm'>2020 · Acrylic on canvas · 50 × 70 cm</p>
           </figcaption>
         </figure>
 
@@ -333,8 +333,8 @@
           <img src="images/works/buscando-la-libertad.jpg" alt="Buscando la libertad — acrylic painting" loading="lazy">
           <figcaption>
             <h3>Buscando la libertad</h3>
-            <p class="work-sold">Sold</p>
-            <p class="work-meta">2019 · Acrylic on canvas · 70 × 100 cm</p>
+            <p class="work-sold" data-es='Vendida'>Sold</p>
+            <p class="work-meta" data-es='2019 · Acrílico sobre lienzo · 70 × 100 cm'>2019 · Acrylic on canvas · 70 × 100 cm</p>
           </figcaption>
         </figure>
 
@@ -345,30 +345,30 @@
 
   <!-- ========== INSTALACION ========== -->
   <section id="installation" class="section">
-    <h2 class="section-title">Installation</h2>
+    <h2 class="section-title" data-es='Instalación'>Installation</h2>
 
     <div class="install-info prose">
       <h3>Estación y camino</h3>
-      <p class="work-meta">2026 · Installation — plastic stools, newspaper, variable spatial arrangement · Variable dimensions</p>
-      <p><em>Estación y camino</em> offers a reflection on the invisible dynamics of informal labor and the repetitive journeys that sustain much of urban life.</p>
-      <p>The installation uses colorful plastic stools —common objects within the Latin American street landscape— as symbols of the street vendor and of the temporary structures that occupy public space every day. Arranged in a row, the stools build a trajectory that evokes the constant movement of the workplace, where each station represents a momentary pause within a routine marked by mobility, waiting and adaptation.</p>
-      <p>Beneath this path, a road made of newspaper functions as a symbolic surface over which these everyday economies travel. The printed news —a record of political, social and economic conflicts— lies literally beneath the passage of the stools, suggesting how informal labor continues to exist and resist amid the ceaseless flow of events that runs through society.</p>
-      <p>The piece seeks to make visible labor practices that are frequently normalized or ignored, understanding public space as a place of exchange, survival and collective memory.</p>
-      <p class="work-note">Part of <em>Intercambios cotidianos</em>, the artist's first solo exhibition — Centro Cultural Sampedrano, San Pedro Sula, 2026.</p>
+      <p class="work-meta" data-es='2026 · Instalación — bancos plásticos, papel periódico, disposición espacial variable · Medidas variables'>2026 · Installation — plastic stools, newspaper, variable spatial arrangement · Variable dimensions</p>
+      <p data-es='<em>Estación y camino</em> propone una reflexión sobre las dinámicas invisibles del trabajo informal y los recorridos repetitivos que sostienen gran parte de la vida urbana.'><em>Estación y camino</em> offers a reflection on the invisible dynamics of informal labor and the repetitive journeys that sustain much of urban life.</p>
+      <p data-es='La instalación utiliza bancos plásticos de colores —objetos comunes dentro del paisaje callejero latinoamericano— como símbolos del vendedor ambulante y de las estructuras temporales que ocupan el espacio público diariamente. Dispuestos en fila, los bancos construyen una trayectoria que remite al desplazamiento constante del puesto de trabajo, donde cada estación representa una pausa momentánea dentro de una rutina marcada por la movilidad, la espera y la adaptación.'>The installation uses colorful plastic stools —common objects within the Latin American street landscape— as symbols of the street vendor and of the temporary structures that occupy public space every day. Arranged in a row, the stools build a trajectory that evokes the constant movement of the workplace, where each station represents a momentary pause within a routine marked by mobility, waiting and adaptation.</p>
+      <p data-es='Debajo de este recorrido, un camino formado por papel periódico funciona como una superficie simbólica sobre la cual transitan estas economías cotidianas. Las noticias impresas —registro de conflictos políticos, sociales y económicos— quedan literalmente bajo el paso de los bancos, sugiriendo cómo el trabajo informal continúa existiendo y resistiendo en medio del flujo incesante de acontecimientos que atraviesan la sociedad.'>Beneath this path, a road made of newspaper functions as a symbolic surface over which these everyday economies travel. The printed news —a record of political, social and economic conflicts— lies literally beneath the passage of the stools, suggesting how informal labor continues to exist and resist amid the ceaseless flow of events that runs through society.</p>
+      <p data-es='La pieza busca visibilizar prácticas laborales frecuentemente normalizadas o ignoradas, entendiendo el espacio público como un lugar de intercambio, supervivencia y memoria colectiva.'>The piece seeks to make visible labor practices that are frequently normalized or ignored, understanding public space as a place of exchange, survival and collective memory.</p>
+      <p class="work-note" data-es='Parte de <em>Intercambios cotidianos</em>, primera exposición individual de la artista — Centro Cultural Sampedrano, San Pedro Sula, 2026.'>Part of <em>Intercambios cotidianos</em>, the artist's first solo exhibition — Centro Cultural Sampedrano, San Pedro Sula, 2026.</p>
     </div>
 
     <div class="gallery">
       <figure class="work">
         <img src="images/installation/estacion-y-camino-1.jpg" alt="Estación y camino — installation view: a line of seven colorful plastic stools on sheets of newspaper, paintings on the gallery wall behind" loading="lazy">
         <figcaption>
-          <p class="work-note">Installation view</p>
+          <p class="work-note" data-es='Vista de la exposición'>Installation view</p>
         </figcaption>
       </figure>
 
       <figure class="work">
         <img src="images/installation/estacion-y-camino-2.jpg" alt="Estación y camino — installation view with the Intercambios cotidianos title wall and the plastic stools arranged on newspaper" loading="lazy">
         <figcaption>
-          <p class="work-note">Installation view — <em>Intercambios cotidianos</em> title wall</p>
+          <p class="work-note" data-es='Vista de la exposición — muro con el título <em>Intercambios cotidianos</em>'>Installation view — <em>Intercambios cotidianos</em> title wall</p>
         </figcaption>
       </figure>
     </div>
@@ -376,55 +376,55 @@
 
   <!-- ========== BIOGRAFIA ========== -->
   <section id="about" class="section">
-    <h2 class="section-title">About</h2>
+    <h2 class="section-title" data-es='Sobre mí'>About</h2>
     <div class="about-layout">
       <img class="portrait" src="images/about/ninfa-studio.jpg" alt="Ninfa Espinoza seated in her studio in front of two of her paintings">
       <div class="prose">
-        <p>Ninfa Espinoza (b. 1992) is a Honduran visual artist based in San Pedro Sula. In 2026 she completed her studies in Interior Design at CEUTEC. In 2023 she received an Honorable Mention as Revelation Artist at the XXXIII National Art Salon of the Centro Cultural Sampedrano.</p>
+        <p data-es='Ninfa Espinoza (1992) es una artista visual hondureña radicada en San Pedro Sula. En 2026 culminó sus estudios en Diseño de Interiores en CEUTEC. En 2023 recibió la mención honorífica como Artista Revelación en el XXXIII Salón Nacional de Arte del Centro Cultural Sampedrano.'>Ninfa Espinoza (b. 1992) is a Honduran visual artist based in San Pedro Sula. In 2026 she completed her studies in Interior Design at CEUTEC. In 2023 she received an Honorable Mention as Revelation Artist at the XXXIII National Art Salon of the Centro Cultural Sampedrano.</p>
 
-        <p>In 2026 she presented <em>Intercambios Cotidianos</em>, her first solo exhibition, at the Centro Cultural Sampedrano. Her exhibition history includes participation in group shows at the national and international level, among them <em>TE ODIO</em> — presented in 2025 at the Centro Cultural de España in Costa Rica and in 2026 at the Centro Cultural de España in Tegucigalpa — as well as <em>El Arte y la Paz</em>, presented in 2025 at Torre Banpaís. She has taken part for three consecutive years in the National Art Salon of the Centro Cultural Sampedrano.</p>
+        <p data-es='En 2026 presentó <em>Intercambios cotidianos</em>, su primera exposición individual, en el Centro Cultural Sampedrano. Su trayectoria expositiva incluye participaciones en muestras colectivas nacionales e internacionales, entre ellas <em>TE ODIO</em> —presentada en 2025 en el Centro Cultural de España en Costa Rica y en 2026 en el Centro Cultural de España en Tegucigalpa— así como <em>El Arte y la Paz</em>, presentada en 2025 en la Torre Banpaís. Ha participado durante tres años consecutivos en el Salón Nacional de Arte del Centro Cultural Sampedrano.'>In 2026 she presented <em>Intercambios Cotidianos</em>, her first solo exhibition, at the Centro Cultural Sampedrano. Her exhibition history includes participation in group shows at the national and international level, among them <em>TE ODIO</em> — presented in 2025 at the Centro Cultural de España in Costa Rica and in 2026 at the Centro Cultural de España in Tegucigalpa — as well as <em>El Arte y la Paz</em>, presented in 2025 at Torre Banpaís. She has taken part for three consecutive years in the National Art Salon of the Centro Cultural Sampedrano.</p>
 
-        <p>Since 2023 she has been a member of the Colectivo de Pintores Sampedranos and, since 2024, of the Asociación de Mujeres Artistas Hondureñas (AMAH), taking part in exhibitions, workshops and artistic training activities.</p>
+        <p data-es='Desde 2023 forma parte del Colectivo de Pintores Sampedranos y, desde 2024, de la Asociación de Mujeres Artistas Hondureñas (AMAH), participando en exposiciones, talleres y actividades de formación artística.'>Since 2023 she has been a member of the Colectivo de Pintores Sampedranos and, since 2024, of the Asociación de Mujeres Artistas Hondureñas (AMAH), taking part in exhibitions, workshops and artistic training activities.</p>
 
-        <p>Her practice explores the relationship between people, everyday life and the spaces they inhabit. Through painting and installation, and using materials such as canvas, paper, plastic, wood and cotton, she addresses experiences linked to labor, affective bonds and urban environments, paying attention to vulnerability, resilience and the ways in which the everyday builds memory and identity.</p>
+        <p data-es='Su práctica explora la relación entre las personas, la vida cotidiana y los espacios que habitan. A través de la pintura y la instalación, y mediante materiales como lienzo, papel, plástico, madera y algodón, aborda experiencias vinculadas con el trabajo, los vínculos afectivos y los entornos urbanos, atendiendo a la vulnerabilidad, la resiliencia y las formas en que lo cotidiano construye memoria e identidad.'>Her practice explores the relationship between people, everyday life and the spaces they inhabit. Through painting and installation, and using materials such as canvas, paper, plastic, wood and cotton, she addresses experiences linked to labor, affective bonds and urban environments, paying attention to vulnerability, resilience and the ways in which the everyday builds memory and identity.</p>
       </div>
     </div>
   </section>
 
   <!-- ========== CURRICULUM ========== -->
   <section id="cv" class="section section-narrow">
-    <h2 class="section-title">CV</h2>
+    <h2 class="section-title" data-es='CV'>CV</h2>
 
-    <h3 class="cv-heading">Education</h3>
+    <h3 class="cv-heading" data-es='Educación'>Education</h3>
     <ul class="cv-list">
-      <li><span class="year">2022—26</span> Centro Universitario Tecnológico (CEUTEC) — Degree in Interior Design</li>
-      <li><span class="year">2009—11</span> Instituto Vocacional de Arte (IVA) — Drawing and Painting</li>
+      <li data-es='<span class="year">2022—26</span> Centro Universitario Tecnológico (CEUTEC) — Técnico Universitario en Diseño de Interiores'><span class="year">2022—26</span> Centro Universitario Tecnológico (CEUTEC) — Degree in Interior Design</li>
+      <li data-es='<span class="year">2009—11</span> Instituto Vocacional de Arte (IVA) — Dibujo y Pintura'><span class="year">2009—11</span> Instituto Vocacional de Arte (IVA) — Drawing and Painting</li>
     </ul>
 
-    <h3 class="cv-heading">Exhibitions</h3>
+    <h3 class="cv-heading" data-es='Exposiciones'>Exhibitions</h3>
     <ul class="cv-list">
-      <li><span class="year">2026</span> <em>Intercambios cotidianos</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag tag-solo">Solo</span></li>
-      <li><span class="year">2026</span> <em>Te Odio</em> — Centro Cultural de España, Tegucigalpa, Honduras <span class="tag">Group</span></li>
-      <li><span class="year">2026</span> <em>Esencia de Mujer</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag">Group</span></li>
-      <li><span class="year">2025</span> <em>Te Odio</em> — Centro Cultural de España, San José, Costa Rica <span class="tag">Group</span></li>
-      <li><span class="year">2025</span> <em>El Arte y la Paz</em>, AMAH — Torre Banpaís, San Pedro Sula <span class="tag">Group</span></li>
-      <li><span class="year">2025</span> <em>Esencia de Mujer</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag">Group</span></li>
-      <li><span class="year">2025</span> XXXV National Art Salon — Centro Cultural Sampedrano <span class="tag">Group</span></li>
-      <li><span class="year">2024</span> XXXIV National Art Salon — Centro Cultural Sampedrano <span class="tag">Group</span></li>
-      <li><span class="year">2023</span> XXXIII National Art Salon — Centro Cultural Sampedrano <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2026</span> <em>Intercambios cotidianos</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag tag-solo">Individual</span>'><span class="year">2026</span> <em>Intercambios cotidianos</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag tag-solo">Solo</span></li>
+      <li data-es='<span class="year">2026</span> <em>Te Odio</em> — Centro Cultural de España, Tegucigalpa, Honduras <span class="tag">Colectiva</span>'><span class="year">2026</span> <em>Te Odio</em> — Centro Cultural de España, Tegucigalpa, Honduras <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2026</span> <em>Esencia de Mujer</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag">Colectiva</span>'><span class="year">2026</span> <em>Esencia de Mujer</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2025</span> <em>Te Odio</em> — Centro Cultural de España, San José, Costa Rica <span class="tag">Colectiva</span>'><span class="year">2025</span> <em>Te Odio</em> — Centro Cultural de España, San José, Costa Rica <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2025</span> <em>El Arte y la Paz</em>, AMAH — Torre Banpaís, San Pedro Sula <span class="tag">Colectiva</span>'><span class="year">2025</span> <em>El Arte y la Paz</em>, AMAH — Torre Banpaís, San Pedro Sula <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2025</span> <em>Esencia de Mujer</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag">Colectiva</span>'><span class="year">2025</span> <em>Esencia de Mujer</em> — Centro Cultural Sampedrano, San Pedro Sula <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2025</span> XXXV Salón Nacional de Arte — Centro Cultural Sampedrano <span class="tag">Colectiva</span>'><span class="year">2025</span> XXXV National Art Salon — Centro Cultural Sampedrano <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2024</span> XXXIV Salón Nacional de Arte — Centro Cultural Sampedrano <span class="tag">Colectiva</span>'><span class="year">2024</span> XXXIV National Art Salon — Centro Cultural Sampedrano <span class="tag">Group</span></li>
+      <li data-es='<span class="year">2023</span> XXXIII Salón Nacional de Arte — Centro Cultural Sampedrano <span class="tag">Colectiva</span>'><span class="year">2023</span> XXXIII National Art Salon — Centro Cultural Sampedrano <span class="tag">Group</span></li>
     </ul>
 
-    <h3 class="cv-heading">Awards</h3>
+    <h3 class="cv-heading" data-es='Premios'>Awards</h3>
     <ul class="cv-list">
-      <li><span class="year">2023</span> Honorable Mention, "New Artist" — XXXIII National Art Salon, Centro Cultural Sampedrano</li>
+      <li data-es='<span class="year">2023</span> Mención honorífica, «Artista Revelación» — XXXIII Salón Nacional de Arte, Centro Cultural Sampedrano'><span class="year">2023</span> Honorable Mention, "New Artist" — XXXIII National Art Salon, Centro Cultural Sampedrano</li>
     </ul>
 
-    <h3 class="cv-heading">Workshops</h3>
+    <h3 class="cv-heading" data-es='Talleres'>Workshops</h3>
     <ul class="cv-list">
-      <li><span class="year">2023</span> Portfolio, Artistic and Cultural Proposals — Mujeres en las Artes (MUA)</li>
+      <li data-es='<span class="year">2023</span> Portafolio y propuestas artísticas y culturales — Mujeres en las Artes (MUA)'><span class="year">2023</span> Portfolio, Artistic and Cultural Proposals — Mujeres en las Artes (MUA)</li>
     </ul>
 
-    <h3 class="cv-heading">Memberships</h3>
+    <h3 class="cv-heading" data-es='Afiliaciones'>Memberships</h3>
     <ul class="cv-list">
       <li>Colectivo de Pintores Sampedranos (CPS)</li>
       <li>Asociación de Mujeres Artistas Hondureñas (AMAH)</li>
@@ -433,40 +433,40 @@
 
   <!-- ========== PUBLICACIONES ========== -->
   <section id="publications" class="section section-narrow">
-    <h2 class="section-title">Publications</h2>
+    <h2 class="section-title" data-es='Publicaciones'>Publications</h2>
     <div class="pub-list">
 
       <div class="pub">
         <h3>«Intercambios cotidianos»: Ninfa Espinoza lleva al arte las historias del trabajo informal en San Pedro Sula</h3>
-        <p class="work-meta">Press · ENTER 504 · October 2026</p>
-        <a class="pub-link" href="https://enter504.com/intercambios-cotidianos-ninfa-espinoza-lleva-al-arte-las-historias-del-trabajo-informal-en-san-pedro-sula/" target="_blank" rel="noopener">Read the article ↗</a>
+        <p class="work-meta" data-es='Prensa · ENTER 504 · octubre de 2026'>Press · ENTER 504 · October 2026</p>
+        <a class="pub-link" href="https://enter504.com/intercambios-cotidianos-ninfa-espinoza-lleva-al-arte-las-historias-del-trabajo-informal-en-san-pedro-sula/" target="_blank" rel="noopener" data-es='Leer la nota ↗'>Read the article ↗</a>
       </div>
 
       <div class="pub">
         <h3>«Intercambios cotidianos»: el rostro humano de la economía informal a través del arte de Ninfa Espinoza</h3>
-        <p class="work-meta">Press · El Diario · October 2026</p>
-        <a class="pub-link" href="https://www.eldiario.hn/exposicion-intercambios-cotidianos-el-rostro-humano-de-la-economia-informal-a-traves-del-arte-de-ninfa-espinoza/" target="_blank" rel="noopener">Read the article ↗</a>
+        <p class="work-meta" data-es='Prensa · El Diario · octubre de 2026'>Press · El Diario · October 2026</p>
+        <a class="pub-link" href="https://www.eldiario.hn/exposicion-intercambios-cotidianos-el-rostro-humano-de-la-economia-informal-a-traves-del-arte-de-ninfa-espinoza/" target="_blank" rel="noopener" data-es='Leer la nota ↗'>Read the article ↗</a>
       </div>
 
       <div class="pub">
         <h3>Intercambios cotidianos</h3>
-        <p class="work-meta">Exhibition catalogue · Centro Cultural Sampedrano, San Pedro Sula · 2026</p>
-        <a class="button" href="catalogo/" target="_blank" rel="noopener">View catalogue</a>
+        <p class="work-meta" data-es='Catálogo de exposición · Centro Cultural Sampedrano, San Pedro Sula · 2026'>Exhibition catalogue · Centro Cultural Sampedrano, San Pedro Sula · 2026</p>
+        <a class="button" href="catalogo/" target="_blank" rel="noopener" data-es='Ver catálogo'>View catalogue</a>
       </div>
 
       <div class="pub">
         <h3>XXXV Salón Nacional de Arte</h3>
-        <p class="work-meta">Group exhibition catalogue · Centro Cultural Sampedrano · 2025</p>
+        <p class="work-meta" data-es='Catálogo de exposición colectiva · Centro Cultural Sampedrano · 2025'>Group exhibition catalogue · Centro Cultural Sampedrano · 2025</p>
       </div>
 
       <div class="pub">
         <h3>XXXIV Salón Nacional de Arte</h3>
-        <p class="work-meta">Group exhibition catalogue · Centro Cultural Sampedrano · 2024</p>
+        <p class="work-meta" data-es='Catálogo de exposición colectiva · Centro Cultural Sampedrano · 2024'>Group exhibition catalogue · Centro Cultural Sampedrano · 2024</p>
       </div>
 
       <div class="pub">
         <h3>XXXIII Salón Nacional de Arte</h3>
-        <p class="work-meta">Group exhibition catalogue · Centro Cultural Sampedrano · 2023</p>
+        <p class="work-meta" data-es='Catálogo de exposición colectiva · Centro Cultural Sampedrano · 2023'>Group exhibition catalogue · Centro Cultural Sampedrano · 2023</p>
       </div>
 
     </div>
@@ -474,10 +474,10 @@
 
   <!-- ========== CONTACTO ========== -->
   <section id="contact" class="section section-narrow">
-    <h2 class="section-title">Contact</h2>
+    <h2 class="section-title" data-es='Contacto'>Contact</h2>
     <div class="contact-grid">
       <div>
-        <p class="contact-label">Email</p>
+        <p class="contact-label" data-es='Correo'>Email</p>
         <a href="mailto:ninfaespinozam@gmail.com">ninfaespinozam@gmail.com</a>
       </div>
       <div>
@@ -485,14 +485,14 @@
         <a href="https://instagram.com/ninfaespinoza_" target="_blank" rel="noopener">@ninfaespinoza_</a>
       </div>
       <div>
-        <p class="contact-label">Based in</p>
+        <p class="contact-label" data-es='Radicada en'>Based in</p>
         <p>San Pedro Sula, Honduras</p>
       </div>
     </div>
   </section>
 
   <footer class="site-footer">
-    <p>© <span id="year">2026</span> Ninfa Espinoza. All works and images are the property of the artist.</p>
+    <p data-es='© <span id="year">2026</span> Ninfa Espinoza. Todas las obras e imágenes son propiedad de la artista.'>© <span id="year">2026</span> Ninfa Espinoza. All works and images are the property of the artist.</p>
   </footer>
 
   <!--
@@ -504,24 +504,67 @@
     <div class="lightbox-content">
       <img id="lightbox-img" src="" alt="">
       <p id="lightbox-caption"></p>
-      <!--
-        "Inquire": al tocarlo se despliega el formulario de abajo. Al
-        enviarlo, script.js lo manda por Formspree (sin abrir la app de
-        correo del visitante) y la consulta llega a la artista. Todo
-        esto se oculta en la instalacion (no esta a la venta).
-      -->
-      <a id="lightbox-inquire" class="lightbox-inquire" href="#">Inquire</a>
+      <a id="lightbox-inquire" class="lightbox-inquire" href="#" data-es='Consultar'>Inquire</a>
       <form id="inquiry-form" class="inquiry-form" hidden>
-        <input type="text" name="name" placeholder="Your name" autocomplete="name">
-        <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
-        <textarea name="message" rows="4" placeholder="Your message…" required></textarea>
+        <input type="text" name="name" placeholder="Your name" data-es-ph="Tu nombre" autocomplete="name">
+        <input type="email" name="email" placeholder="Your email" data-es-ph="Tu correo" autocomplete="email" required>
+        <textarea name="message" rows="4" placeholder="Your message…" data-es-ph="Tu mensaje…" required></textarea>
         <input type="hidden" name="_subject" id="inquiry-subject" value="">
         <input type="hidden" name="artwork" id="inquiry-artwork" value="">
-        <button type="submit" class="button">Send</button>
+        <button type="submit" class="button" data-es='Enviar'>Send</button>
       </form>
       <p class="inquiry-status" id="inquiry-status" role="status"></p>
     </div>
   </div>
+
+  <!-- ========== IDIOMA (ES / EN) ========== -->
+  <script>
+  (function () {
+    var UI = {
+      en: { title: 'Ninfa Espinoza — Contemporary Visual Artist',
+            desc: 'Ninfa Espinoza (b. 1992) is a Honduran visual artist based in San Pedro Sula. Her paintings and installations explore everyday life, informal labor, urban space, and collective memory.' },
+      es: { title: 'Ninfa Espinoza — Artista visual contemporánea',
+            desc: 'Ninfa Espinoza (1992) es una artista visual hondureña radicada en San Pedro Sula. Su pintura e instalación exploran la vida cotidiana, el trabajo informal, el espacio urbano y la memoria colectiva.' }
+    };
+    var els = Array.prototype.slice.call(document.querySelectorAll('[data-es]'));
+    els.forEach(function (el) { el.setAttribute('data-en', el.innerHTML); });
+    var phEls = Array.prototype.slice.call(document.querySelectorAll('[data-es-ph]'));
+    phEls.forEach(function (el) { el.setAttribute('data-en-ph', el.getAttribute('placeholder') || ''); });
+
+    // textos que genera script.js (visor y formulario)
+    window.I18N = {
+      lang: 'en',
+      strings: {
+        en: { sold: 'This work is sold.', sending: 'Sending…', sent: 'Thank you — your message has been sent.',
+              errPre: 'Something went wrong. Please email ', errPost: '.', subject: 'Inquire: ',
+              msgPre: 'I am interested in «', msgPost: '». Could you tell me more about its availability and price?' },
+        es: { sold: 'Esta obra está vendida.', sending: 'Enviando…', sent: 'Gracias — tu mensaje ha sido enviado.',
+              errPre: 'Algo salió mal. Por favor escribe a ', errPost: '.', subject: 'Consulta: ',
+              msgPre: 'Me interesa «', msgPost: '». ¿Podrías contarme más sobre su disponibilidad y precio?' }
+      }
+    };
+
+    function apply(lang) {
+      window.I18N.lang = lang;
+      document.documentElement.lang = lang;
+      var a = (lang === 'es');
+      els.forEach(function (el) { el.innerHTML = el.getAttribute(a ? 'data-es' : 'data-en'); });
+      phEls.forEach(function (el) { el.setAttribute('placeholder', el.getAttribute(a ? 'data-es-ph' : 'data-en-ph')); });
+      document.title = UI[lang].title;
+      var m = document.querySelector('meta[name="description"]'); if (m) { m.setAttribute('content', UI[lang].desc); }
+      var be = document.getElementById('btn-es'), bn = document.getElementById('btn-en');
+      if (be && bn) { be.classList.toggle('active', a); bn.classList.toggle('active', !a); }
+    }
+
+    var saved = null; try { saved = localStorage.getItem('sitelang'); } catch (e) {}
+    var initial = saved || (((navigator.language || '').toLowerCase().indexOf('es') === 0) ? 'es' : 'en');
+    function setLang(l) { try { localStorage.setItem('sitelang', l); } catch (e) {} apply(l); }
+    var be = document.getElementById('btn-es'), bn = document.getElementById('btn-en');
+    if (be) be.addEventListener('click', function () { setLang('es'); });
+    if (bn) bn.addEventListener('click', function () { setLang('en'); });
+    apply(initial);
+  })();
+  </script>
 
   <script src="script.js"></script>
 </body>
