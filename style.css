@@ -71,6 +71,7 @@ a { color: var(--accent); }
 .site-header nav {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1.6rem;
 }
 
@@ -90,19 +91,6 @@ a { color: var(--accent); }
 .site-header nav a.active {
   color: var(--text);
   border-bottom-color: var(--accent);
-}
-
-/* botón Shop: resalta como llamada a la tienda */
-.site-header nav a.nav-shop {
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  border-radius: 3px;
-  padding: 0.3rem 0.7rem;
-}
-.site-header nav a.nav-shop:hover {
-  background: var(--accent);
-  color: var(--bg);
-  border-color: var(--accent);
 }
 
 /* lado derecho del encabezado: menú + selector de idioma */
