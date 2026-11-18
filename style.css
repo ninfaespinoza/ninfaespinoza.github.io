@@ -17,7 +17,7 @@
   --text:      #1a1a18;  /* texto principal */
   --text-soft: #6b6862;  /* texto secundario, mas claro */
   --line:      #e4e0d9;  /* lineas divisorias */
-  --accent:    #8a5a3b;  /* color de enfasis, terracota */
+  --accent:    #6b6862;  /* color de enfasis, gris neutro (sin terracota) */
 
   --max-width: 1200px;
   --radius: 2px;
@@ -310,7 +310,8 @@ a { color: var(--accent); }
 
 /* Marca "Sold" bajo el titulo de una obra vendida.
    El punto (●) antes de la palabra la hace mas visible sin gritar. */
-.work-sold {
+.work-sold,
+.work-status {
   font-family: system-ui, sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.16em;
@@ -319,7 +320,8 @@ a { color: var(--accent); }
   margin: 0.4rem 0 0.1rem;
 }
 
-.work-sold::before {
+.work-sold::before,
+.work-status::before {
   content: "●";
   font-size: 0.6em;
   vertical-align: middle;
